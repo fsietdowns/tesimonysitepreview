@@ -66,8 +66,16 @@ for (const name of ["mcaeHome", "mcaeCatalogue"]) {
 
 assert.ok(outputs.previewHome.includes('href="catalogue/"'));
 assert.ok(outputs.previewCatalogue.includes('href="../"'));
-assert.ok(outputs.mcaeHome.includes('href="/testimonies/catalogue"'));
-assert.ok(outputs.mcaeCatalogue.includes('href="/testimonies"'));
+assert.ok(
+  outputs.mcaeHome.includes(
+    'href="https://go.freshstartineducation.co.uk/FSiE-Testimonies-Catalogue"',
+  ),
+);
+assert.ok(
+  outputs.mcaeCatalogue.includes(
+    'href="https://go.freshstartineducation.co.uk/FSiE-Testimonies"',
+  ),
+);
 assert.ok(outputs.previewHome.includes('var PAGE_KIND = "home";'));
 assert.ok(outputs.previewCatalogue.includes('var PAGE_KIND = "catalogue";'));
 assert.ok(

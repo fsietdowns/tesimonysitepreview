@@ -26,14 +26,14 @@ The build sorts stories by `publishedAt`. The newest five are written to the
 homepage, while every testimony is written to the complete catalogue. No manual
 moving or copying between pages is required.
 
-## MCAE landing-page paths
+## MCAE landing-page URLs
 
-The generated MCAE files assume these vanity paths:
+The generated MCAE files link between these published landing pages:
 
-- Homepage: `/testimonies`
-- Catalogue: `/testimonies/catalogue`
+- Homepage: `https://go.freshstartineducation.co.uk/FSiE-Testimonies`
+- Catalogue: `https://go.freshstartineducation.co.uk/FSiE-Testimonies-Catalogue`
 
-If those paths change, update `MCAE_HOME_PATH` and `MCAE_CATALOGUE_PATH` at the top of `scripts/build.mjs`, then rebuild.
+If those URLs change, update `MCAE_HOME_URL` and `MCAE_CATALOGUE_URL` at the top of `scripts/build.mjs`, then rebuild.
 
 Both MCAE outputs retain `%%title%%`, `%%description%%` and `%%content%%`.
 

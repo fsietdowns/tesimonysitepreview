@@ -4,8 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const HOME_STORY_COUNT = 5;
-const MCAE_HOME_PATH = "/testimonies";
-const MCAE_CATALOGUE_PATH = "/testimonies/catalogue";
+const MCAE_HOME_URL = "https://go.freshstartineducation.co.uk/FSiE-Testimonies";
+const MCAE_CATALOGUE_URL = "https://go.freshstartineducation.co.uk/FSiE-Testimonies-Catalogue";
 
 const template = await readFile(
   path.join(repositoryRoot, "src", "layout-template.html"),
@@ -77,8 +77,8 @@ function renderPage({ kind, stories, otherPageSlugs, preview }) {
       ? "catalogue/"
       : "../"
     : isHome
-      ? MCAE_CATALOGUE_PATH
-      : MCAE_HOME_PATH;
+      ? MCAE_CATALOGUE_URL
+      : MCAE_HOME_URL;
   const otherPageLabel = isHome
     ? "Testimony catalogue"
     : "Latest testimonies";
