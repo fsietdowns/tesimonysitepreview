@@ -70,6 +70,18 @@ assert.ok(outputs.mcaeHome.includes('href="/testimonies/catalogue"'));
 assert.ok(outputs.mcaeCatalogue.includes('href="/testimonies"'));
 assert.ok(outputs.previewHome.includes('var PAGE_KIND = "home";'));
 assert.ok(outputs.previewCatalogue.includes('var PAGE_KIND = "catalogue";'));
+assert.ok(
+  outputs.previewCatalogue.includes(
+    ".fs-story-grid.fs-catalogue-grid > .fs-story-card:last-child:nth-child(odd)",
+  ),
+  "The catalogue must keep an odd final card in the left column.",
+);
+assert.ok(
+  outputs.previewCatalogue.includes(
+    'storyGrid.classList.toggle("fs-catalogue-grid", PAGE_KIND === "catalogue")',
+  ),
+  "The catalogue grid class must be activated at runtime.",
+);
 assert.ok(outputs.previewHome.includes("window.location.replace(OTHER_PAGE_URL"));
 assert.ok(outputs.previewCatalogue.includes("window.location.replace(OTHER_PAGE_URL"));
 
