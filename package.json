@@ -1,0 +1,12 @@
+{
+  "name": "fresh-start-testimony-preview",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs",
+    "check": "npm run build && npm test",
+    "preview": "node scripts/serve-preview.mjs"
+  }
+}

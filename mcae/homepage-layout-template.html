@@ -1,0 +1,1808 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%%title%%</title>
+  <meta name="description" content="%%description%%">
+  <link rel="icon" href="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE">
+
+  <!--
+    FRESH START IN EDUCATION: GENERATED TESTIMONY PAGE SOURCE
+
+    Use this file as a CLASSIC Account Engagement Layout Template.
+    Content > Layout Templates > Add Layout Template > Layout tab.
+
+    Do not publish this source template directly. Edit content/testimonies.json
+    and run npm run build to generate the preview and MCAE files.
+  -->
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;550;600;700&display=swap");
+
+    :root {
+      --ink: #000000;
+      --ink-soft: #4d4d4d;
+      --cream: #e2dfec;
+      --paper: #f8f7f5;
+      --green: #8c7ec9;
+      --coral: #84dade;
+      --blue: #24596b;
+      --gold: #e5b84a;
+      --sage: #c4edef;
+      --line: rgba(0, 0, 0, 0.15);
+      --featured: Georgia, "Times New Roman", serif;
+      --display: "Inter Tight", Arial, Helvetica, sans-serif;
+      --sans: "Inter", Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.5;
+      text-rendering: optimizeLegibility;
+    }
+
+    body.fs-story-open {
+      background: var(--paper);
+    }
+
+    button,
+    a {
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .fs-sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* MCAE requires %%content%% to remain in a classic layout template. */
+    .fs-mcae-content-slot {
+      display: none;
+    }
+
+    .fs-utility-bar {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 14px 48px 0;
+    }
+
+    .fs-utility-inner {
+      align-items: center;
+      display: flex;
+      gap: 34px;
+      justify-content: flex-end;
+      margin: 0 auto;
+      max-width: 1344px;
+    }
+
+    .fs-utility-bar a {
+      align-items: center;
+      display: inline-flex;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .fs-utility-icon {
+      color: var(--blue);
+      flex: 0 0 auto;
+      height: 18px;
+      width: 18px;
+    }
+
+    .fs-site-header {
+      align-items: center;
+      background: var(--paper);
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      max-width: 1440px;
+      padding: 12px 48px 20px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .fs-brand {
+      align-items: center;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      gap: 12px;
+      padding: 0;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    .fs-brand-logo {
+      display: block;
+      height: auto;
+      margin: -26px 0 -38px;
+      max-height: 144px;
+      object-fit: contain;
+      position: relative;
+      top: 18px;
+      width: 170px;
+    }
+
+    .fs-site-footer .fs-brand-logo {
+      margin: 0;
+      max-height: 112px;
+      position: static;
+      width: 132px;
+    }
+
+    .fs-brand-name {
+      display: none;
+    }
+
+    .fs-brand-name small {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0;
+      margin-top: 5px;
+    }
+
+    .fs-main-nav {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+    }
+
+    .fs-main-nav a {
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 11px 16px;
+      text-decoration: none;
+    }
+
+    .fs-main-nav .fs-nav-cta {
+      background: var(--green);
+      border-radius: 999px;
+      color: white;
+      padding: 12px 20px;
+    }
+
+    .fs-main-nav .fs-nav-secondary {
+      background: var(--coral);
+      color: white;
+      font-family: var(--featured);
+      font-size: 17px;
+      font-style: italic;
+      padding: 10px 20px 12px;
+    }
+
+    .fs-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin: 0 0 26px;
+      text-transform: uppercase;
+    }
+
+    .fs-library-hero {
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 0 24px;
+      min-height: 620px;
+      overflow: hidden;
+      padding: 0;
+      position: relative;
+      text-align: left;
+    }
+
+    .fs-library-hero:before {
+      display: none;
+    }
+
+    .fs-orbit {
+      display: none;
+    }
+
+    .fs-hero-copy {
+      align-items: flex-start;
+      background: var(--blue);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(54px, 7vw, 100px);
+      position: relative;
+    }
+
+    .fs-hero-copy:after {
+      border: 1px solid rgba(132, 218, 222, 0.18);
+      border-radius: 50%;
+      content: "";
+      height: 520px;
+      position: absolute;
+      right: -180px;
+      top: 80px;
+      transform: rotate(-18deg);
+      width: 720px;
+    }
+
+    .fs-hero-image {
+      background-image: url("https://freshstartineducation.co.uk/content/uploads/shutterstock_1980856400-min-scaled.jpg");
+      background-position: center top;
+      background-size: cover;
+      min-height: 620px;
+    }
+
+    .fs-library-hero h1 {
+      font-family: var(--display);
+      font-size: clamp(52px, 6vw, 82px);
+      font-weight: 550;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+      margin: 0;
+      max-width: 660px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fs-library-hero h1 span {
+      color: white;
+      display: block;
+    }
+
+    .fs-hero-intro {
+      font-size: 16px;
+      line-height: 1.55;
+      margin: 28px 0 34px;
+      max-width: 560px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fs-hero-scroll {
+      background: var(--green);
+      border-radius: 999px;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 22px;
+      position: relative;
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .fs-hero-copy .fs-eyebrow {
+      color: var(--coral);
+      margin-bottom: 22px;
+    }
+
+    .fs-story-library {
+      background: var(--paper);
+      padding: 120px 48px 130px;
+    }
+
+    .fs-section-heading,
+    .fs-filter-bar,
+    .fs-results-line,
+    .fs-story-grid {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1344px;
+    }
+
+    .fs-section-heading {
+      align-items: end;
+      display: grid;
+      gap: 60px;
+      grid-template-columns: 1.4fr 0.6fr;
+    }
+
+    .fs-section-heading h2 {
+      font-family: var(--display);
+      font-size: clamp(42px, 5vw, 68px);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin: 0;
+      max-width: 760px;
+    }
+
+    .fs-section-heading h2 .fs-tagline-accent {
+      color: #58cdd2;
+    }
+
+    .fs-section-heading > p {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.65;
+      margin: 0 0 7px;
+      max-width: 360px;
+    }
+
+    .fs-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 64px;
+    }
+
+    .fs-filter {
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 11px 17px;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .fs-filter:hover {
+      transform: translateY(-2px);
+    }
+
+    .fs-filter.fs-active {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+
+    .fs-results-line {
+      align-items: center;
+      border-top: 1px solid var(--line);
+      display: flex;
+      font-size: 11px;
+      font-weight: 800;
+      justify-content: space-between;
+      letter-spacing: 0.12em;
+      margin-top: 36px;
+      padding: 20px 0 18px;
+      text-transform: uppercase;
+    }
+
+    .fs-results-line button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: 11px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .fs-story-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fs-story-card {
+      background: white;
+      border-radius: 24px;
+      min-height: 530px;
+      overflow: hidden;
+      transition: box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .fs-story-card:hover {
+      box-shadow: 0 20px 46px rgba(36, 89, 107, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .fs-story-card.fs-featured {
+      grid-column: span 2;
+      min-height: 600px;
+    }
+
+    .fs-story-link {
+      background: transparent;
+      border: 0;
+      display: grid;
+      grid-template-rows: 240px 1fr;
+      height: 100%;
+      padding: 0;
+      text-align: left;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .fs-featured .fs-story-link {
+      grid-template-columns: 0.92fr 1.08fr;
+      grid-template-rows: 1fr;
+    }
+
+    .fs-card-visual,
+    .fs-story-portrait {
+      align-items: center;
+      background: var(--story-accent, var(--coral));
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .fs-card-visual img,
+    .fs-story-portrait img {
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      width: 100%;
+    }
+
+    .fs-card-initials {
+      color: rgba(255, 255, 255, 0.86);
+      font-family: var(--display);
+      font-size: 86px;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fs-featured .fs-card-initials {
+      font-size: 150px;
+    }
+
+    .fs-card-initials.fs-name-placeholder {
+      font-size: clamp(54px, 7vw, 76px);
+      letter-spacing: -0.05em;
+      max-width: 82%;
+      text-align: center;
+    }
+
+    .fs-featured .fs-card-initials.fs-name-placeholder {
+      font-size: clamp(72px, 10vw, 120px);
+    }
+
+    .fs-card-initials.fs-name-placeholder.fs-long-name-placeholder {
+      font-size: clamp(34px, 4.5vw, 48px);
+      max-width: 88%;
+    }
+
+    .fs-featured .fs-card-initials.fs-name-placeholder.fs-long-name-placeholder {
+      font-size: clamp(52px, 7vw, 76px);
+    }
+
+    .fs-visual-ring {
+      border: 1px solid rgba(255, 255, 255, 0.52);
+      border-radius: 50%;
+      height: 260px;
+      position: absolute;
+      transform: rotate(-20deg);
+      width: 185px;
+    }
+
+    .fs-featured .fs-visual-ring {
+      height: 440px;
+      width: 310px;
+    }
+
+    .fs-card-content {
+      display: flex;
+      flex-direction: column;
+      padding: 29px 32px 28px;
+    }
+
+    .fs-featured .fs-card-content {
+      justify-content: center;
+      padding: 70px;
+    }
+
+    .fs-card-meta {
+      display: flex;
+      font-size: 10px;
+      font-weight: 800;
+      justify-content: space-between;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .fs-story-card h3 {
+      font-family: var(--display);
+      font-size: clamp(28px, 3.1vw, 46px);
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin: 38px 0 20px;
+    }
+
+    .fs-featured h3 {
+      font-size: clamp(42px, 5vw, 76px);
+      max-width: 710px;
+    }
+
+    .fs-card-content > p {
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 590px;
+    }
+
+    .fs-card-footer {
+      align-items: end;
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 34px;
+    }
+
+    .fs-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .fs-tag {
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 7px 10px;
+      text-transform: uppercase;
+    }
+
+    .fs-card-arrow {
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex;
+      flex: 0 0 auto;
+      height: 42px;
+      justify-content: center;
+      transition: transform 180ms ease;
+      width: 42px;
+    }
+
+    .fs-story-link:hover .fs-card-arrow {
+      transform: rotate(45deg);
+    }
+
+    .fs-impact-strip {
+      background: var(--green);
+      border-radius: 24px;
+      color: white;
+      margin: 0 24px 24px;
+      overflow: hidden;
+      transition: box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .fs-impact-strip:hover {
+      box-shadow: 0 20px 46px rgba(36, 89, 107, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .fs-impact-link {
+      color: inherit;
+      display: block;
+      padding: 120px max(48px, calc((100vw - 1344px) / 2));
+      position: relative;
+      text-decoration: none;
+    }
+
+    .fs-impact-quote {
+      font-family: var(--display);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 1.06;
+      margin: 0;
+      max-width: 1200px;
+    }
+
+    .fs-impact-attribution {
+      color: #84dade;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 34px 0 0;
+    }
+
+    .fs-impact-attribution span {
+      color: white;
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .fs-site-footer {
+      background: var(--blue);
+      color: white;
+      display: grid;
+      gap: 80px;
+      grid-template-columns: 1fr auto;
+      padding: 100px max(48px, calc((100vw - 1344px) / 2)) 38px;
+    }
+
+    .fs-site-footer h2 {
+      font-family: var(--display);
+      font-size: clamp(46px, 5vw, 70px);
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin: 32px 0 0;
+      max-width: none;
+      white-space: nowrap;
+    }
+
+    .fs-site-footer > a {
+      align-self: end;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+      font-size: 12px;
+      font-weight: 800;
+      padding-bottom: 9px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .fs-footer-small {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      font-size: 10px;
+      grid-column: 1 / -1;
+      justify-content: space-between;
+      letter-spacing: 0.08em;
+      margin: 0;
+      padding-top: 23px;
+      text-transform: uppercase;
+    }
+
+    .fs-chat-shortcut {
+      align-items: center;
+      background: #786daa;
+      border-radius: 50%;
+      bottom: 24px;
+      box-shadow: 0 8px 24px rgba(36, 89, 107, 0.24);
+      display: flex;
+      height: 64px;
+      justify-content: center;
+      position: fixed;
+      right: 24px;
+      text-decoration: none;
+      transition: box-shadow 160ms ease, transform 160ms ease;
+      width: 64px;
+      z-index: 150;
+    }
+
+    .fs-chat-shortcut:hover,
+    .fs-chat-shortcut:focus-visible {
+      box-shadow: 0 12px 30px rgba(36, 89, 107, 0.34);
+      transform: translateY(-3px);
+    }
+
+    .fs-chat-bubble {
+      border: 2px solid white;
+      border-radius: 4px;
+      height: 22px;
+      position: relative;
+      width: 29px;
+    }
+
+    .fs-chat-bubble:after {
+      background: #786daa;
+      border-bottom: 2px solid white;
+      border-left: 2px solid white;
+      bottom: -7px;
+      content: "";
+      height: 9px;
+      left: 4px;
+      position: absolute;
+      transform: skewY(-35deg);
+      width: 8px;
+    }
+
+    /* Full-page testimony view */
+    .fs-story-page {
+      --story-accent: var(--coral);
+      background: var(--paper);
+      min-height: 100vh;
+    }
+
+    .fs-back-link {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .fs-story-article {
+      margin: 0 auto;
+      max-width: 1600px;
+    }
+
+    .fs-story-hero {
+      background: white;
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      margin: 0 24px 70px;
+      min-height: 720px;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .fs-story-hero-copy {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 70px 7vw;
+    }
+
+    .fs-back-link {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin-bottom: 76px;
+      padding: 0;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .fs-story-meta {
+      display: flex;
+      font-size: 10px;
+      font-weight: 800;
+      gap: 18px;
+      letter-spacing: 0.14em;
+      margin-bottom: 26px;
+      text-transform: uppercase;
+    }
+
+    .fs-story-hero h1 {
+      font-family: var(--display);
+      font-size: clamp(50px, 6vw, 84px);
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin: 0;
+      max-width: 890px;
+    }
+
+    .fs-story-summary {
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 34px 0;
+      max-width: 620px;
+    }
+
+    .fs-story-portrait {
+      min-height: 640px;
+    }
+
+    .fs-portrait-initials {
+      color: rgba(255, 255, 255, 0.82);
+      font-family: var(--display);
+      font-size: clamp(120px, 15vw, 230px);
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fs-portrait-initials.fs-name-placeholder {
+      font-size: clamp(88px, 12vw, 170px);
+      letter-spacing: -0.055em;
+      max-width: 82%;
+      text-align: center;
+    }
+
+    .fs-portrait-initials.fs-name-placeholder.fs-long-name-placeholder {
+      font-size: clamp(64px, 8vw, 110px);
+      max-width: 88%;
+    }
+
+    .fs-portrait-shape {
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 48% 52% 46% 54% / 40% 44% 56% 60%;
+      height: 72%;
+      position: absolute;
+      transform: rotate(9deg);
+      width: 58%;
+    }
+
+    .fs-story-body {
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 7vw;
+      grid-template-columns: 0.35fr 0.65fr;
+      margin: 0 48px;
+      padding: 110px 7vw 130px;
+    }
+
+    .fs-story-identity {
+      align-self: start;
+      position: sticky;
+      top: 40px;
+    }
+
+    .fs-story-identity h2 {
+      font-family: var(--display);
+      font-size: 42px;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+
+    .fs-story-identity > p {
+      color: var(--ink-soft);
+      font-size: 13px;
+      margin: 0 0 6px;
+    }
+
+    .fs-story-prose {
+      max-width: 760px;
+    }
+
+    .fs-story-prose blockquote {
+      border-left: 6px solid var(--story-accent);
+      font-family: var(--featured);
+      font-style: italic;
+      font-size: clamp(34px, 4vw, 56px);
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin: 0 0 72px;
+      padding-left: 35px;
+    }
+
+    .fs-story-prose > p {
+      font-family: var(--sans);
+      font-size: 18px;
+      line-height: 1.75;
+      margin: 0 0 34px;
+    }
+
+    .fs-story-prose > .fs-privacy-note {
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1.55;
+      margin: 60px 0 0;
+      padding-top: 20px;
+    }
+
+    .fs-placeholder-note {
+      background: var(--cream);
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 68px;
+      padding: 20px 24px;
+    }
+
+    .fs-placeholder-note strong {
+      color: var(--ink);
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+
+    .fs-story-next {
+      align-items: end;
+      background: var(--story-accent);
+      display: flex;
+      justify-content: space-between;
+      border-radius: 24px;
+      margin: 0 24px 24px;
+      padding: 70px 7vw;
+    }
+
+    .fs-story-next h2 {
+      font-family: var(--display);
+      font-size: clamp(38px, 5vw, 70px);
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      margin: 0;
+      max-width: 900px;
+    }
+
+    .fs-round-arrow {
+      align-items: center;
+      background: var(--paper);
+      border-radius: 50%;
+      display: flex;
+      flex: 0 0 auto;
+      font-size: 28px;
+      height: 72px;
+      justify-content: center;
+      margin-left: 40px;
+      text-decoration: none;
+      width: 72px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 900px) {
+      .fs-utility-bar {
+        display: none;
+      }
+
+      .fs-site-header {
+        padding: 22px 24px;
+      }
+
+      .fs-main-nav a:not(.fs-nav-cta) {
+        display: none;
+      }
+
+      .fs-library-hero {
+        grid-template-columns: 1fr;
+        margin: 0 16px;
+      }
+
+      .fs-hero-copy {
+        padding: 76px 48px;
+      }
+
+      .fs-hero-image {
+        min-height: 460px;
+      }
+
+      .fs-story-library {
+        padding: 82px 24px 90px;
+      }
+
+      .fs-section-heading {
+        gap: 26px;
+        grid-template-columns: 1fr;
+      }
+
+      .fs-story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fs-story-card.fs-featured {
+        grid-column: auto;
+      }
+
+      .fs-featured .fs-story-link {
+        grid-template-columns: 1fr;
+        grid-template-rows: 280px 1fr;
+      }
+
+      .fs-featured .fs-card-content {
+        padding: 34px;
+      }
+
+      .fs-impact-link {
+        padding: 90px 24px;
+      }
+
+      .fs-site-footer {
+        grid-template-columns: 1fr;
+        padding: 80px 24px 32px;
+      }
+
+      .fs-site-footer h2 {
+        font-size: clamp(26px, 6.5vw, 50px);
+      }
+
+      .fs-story-hero {
+        grid-template-columns: 1fr;
+        margin: 0 16px 50px;
+        padding: 0;
+      }
+
+      .fs-story-hero-copy {
+        padding: 60px 40px;
+      }
+
+      .fs-story-portrait {
+        min-height: 520px;
+      }
+
+      .fs-story-body {
+        gap: 60px;
+        grid-template-columns: 1fr;
+        margin: 0 24px;
+        padding: 80px 0;
+      }
+
+      .fs-story-identity {
+        position: static;
+      }
+
+      .fs-story-next {
+        margin: 0 24px 24px;
+        padding: 54px 36px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .fs-brand-name {
+        display: none;
+      }
+
+      .fs-library-hero {
+        align-items: flex-start;
+        margin: 0 12px;
+        min-height: 0;
+        text-align: left;
+      }
+
+      .fs-library-hero h1 {
+        font-size: 50px;
+      }
+
+      .fs-hero-copy {
+        padding: 58px 28px;
+      }
+
+      .fs-hero-image {
+        min-height: 340px;
+      }
+
+      .fs-brand-logo {
+        margin: -10px 0 -26px;
+        max-height: 100px;
+        top: 12px;
+        width: 120px;
+      }
+
+      .fs-site-footer h2 {
+        font-size: clamp(19px, 5.8vw, 28px);
+      }
+
+      .fs-impact-strip {
+        margin: 0 12px 12px;
+      }
+
+      .fs-chat-shortcut {
+        bottom: 18px;
+        height: 58px;
+        right: 18px;
+        width: 58px;
+      }
+
+      .fs-filter-bar {
+        flex-wrap: nowrap;
+        margin-left: -24px;
+        margin-right: -24px;
+        overflow-x: auto;
+        padding: 0 24px 12px;
+      }
+
+      .fs-filter {
+        flex: 0 0 auto;
+      }
+
+      .fs-story-link,
+      .fs-featured .fs-story-link {
+        grid-template-rows: 230px 1fr;
+      }
+
+      .fs-card-content,
+      .fs-featured .fs-card-content {
+        padding: 26px 24px;
+      }
+
+      .fs-card-content > p {
+        display: none;
+      }
+
+      .fs-story-hero h1 {
+        font-size: 50px;
+      }
+
+      .fs-story-portrait {
+        min-height: 430px;
+      }
+
+      .fs-story-prose > p {
+        font-size: 19px;
+      }
+
+      .fs-story-next {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 38px;
+        padding: 44px 28px;
+      }
+
+      .fs-round-arrow {
+        height: 58px;
+        margin-left: 0;
+        width: 58px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *:before,
+      *:after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .fs-section-aside {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 7px;
+      max-width: 380px;
+    }
+
+    .fs-section-aside > p {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .fs-page-switch {
+      align-items: center;
+      background: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 999px;
+      color: white;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 12px 18px;
+      text-decoration: none;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .fs-page-switch:hover {
+      background: transparent;
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="fs-library-view">
+    <div class="fs-utility-bar">
+      <div class="fs-utility-inner">
+        <a href="https://freshstartineducation.co.uk/resources/quick-links/" target="_blank" rel="noopener noreferrer">
+          <svg class="fs-utility-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.053 17.054" aria-hidden="true" focusable="false">
+            <g fill="currentColor">
+              <path d="M10.862 0a21.747 21.747 0 0 0-2.647.092 2.949 2.949 0 0 0-1.793.779A2.766 2.766 0 0 0 5.686 2.4a12.98 12.98 0 0 0-.133 2.157.595.595 0 0 0 1.19.007 11.957 11.957 0 0 1 .113-1.949 1.594 1.594 0 0 1 .408-.9 1.789 1.789 0 0 1 1.11-.441 21.308 21.308 0 0 1 2.527-.084h.8a21.308 21.308 0 0 1 2.532.082 1.788 1.788 0 0 1 1.11.441 1.788 1.788 0 0 1 .441 1.11 21.32 21.32 0 0 1 .079 2.527v6.35a21.321 21.321 0 0 1-.082 2.532 1.788 1.788 0 0 1-.441 1.11 1.788 1.788 0 0 1-1.11.441 21.32 21.32 0 0 1-2.532.082h-.797a21.32 21.32 0 0 1-2.532-.082 1.789 1.789 0 0 1-1.11-.441 1.594 1.594 0 0 1-.408-.9 11.958 11.958 0 0 1-.113-1.949.595.595 0 1 0-1.19.007 12.979 12.979 0 0 0 .138 2.15 2.766 2.766 0 0 0 .737 1.529 2.949 2.949 0 0 0 1.793.779 21.76 21.76 0 0 0 2.647.092h.88a21.761 21.761 0 0 0 2.647-.092 2.949 2.949 0 0 0 1.793-.779 2.949 2.949 0 0 0 .779-1.793 21.745 21.745 0 0 0 .092-2.647V5.311a21.745 21.745 0 0 0-.092-2.647 2.949 2.949 0 0 0-.779-1.793A2.949 2.949 0 0 0 14.39.092 21.748 21.748 0 0 0 11.743 0Z"></path>
+              <path d="M.595 7.932a.595.595 0 0 0 0 1.19h9.5l-1.559 1.332a.595.595 0 1 0 .774.9l2.776-2.38a.595.595 0 0 0 0-.9L9.31 5.694a.595.595 0 1 0-.774.9l1.555 1.333Z"></path>
+            </g>
+          </svg>
+          <span>ES and Client Portal</span>
+        </a>
+        <a href="https://online.freshstartineducation.co.uk/" target="_blank" rel="noopener noreferrer">
+          <svg class="fs-utility-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.08 18.054" aria-hidden="true" focusable="false">
+            <g fill="currentColor">
+              <path d="M9.197 8.151a.657.657 0 0 0-1.314 0v1.752a.657.657 0 0 0 1.314 0Z"></path>
+              <path fill-rule="evenodd" d="m10.05.292 2.132.355a22.154 22.154 0 0 1 2.474.5 3.248 3.248 0 0 1 1.645.979 3.248 3.248 0 0 1 .7 1.784 22.173 22.173 0 0 1 .083 2.522v5.2a22.173 22.173 0 0 1-.083 2.522 3.248 3.248 0 0 1-.7 1.784 3.248 3.248 0 0 1-1.645.979 22.147 22.147 0 0 1-2.474.5l-2.132.355a17.7 17.7 0 0 1-2.251.29 2.4 2.4 0 0 1-1.693-.5 2.221 2.221 0 0 1-.718-1.3h-.4a20.045 20.045 0 0 1-2.438-.095 2.821 2.821 0 0 1-1.712-.748 2.821 2.821 0 0 1-.752-1.713A20.03 20.03 0 0 1 0 11.263V6.79a20.03 20.03 0 0 1 .086-2.443 2.821 2.821 0 0 1 .748-1.712 2.821 2.821 0 0 1 1.716-.748 20.03 20.03 0 0 1 2.443-.086h.4a2.221 2.221 0 0 1 .718-1.3 2.4 2.4 0 0 1 1.693-.5 17.7 17.7 0 0 1 2.251.29ZM5.25 13.7c0 .452 0 .865.01 1.239h-.223a19.543 19.543 0 0 1-2.315-.074 1.541 1.541 0 0 1-.958-.375 1.54 1.54 0 0 1-.375-.958 19.534 19.534 0 0 1-.074-2.315v-4.38a19.535 19.535 0 0 1 .074-2.315 1.541 1.541 0 0 1 .375-.958 1.541 1.541 0 0 1 .958-.375 19.535 19.535 0 0 1 2.315-.074h.229c-.01.374-.01.787-.01 1.239ZM7.768 1.315a1.122 1.122 0 0 0-.812.185 1.122 1.122 0 0 0-.316.77 17.224 17.224 0 0 0-.071 2.136v9.246a17.224 17.224 0 0 0 .071 2.133 1.122 1.122 0 0 0 .316.77 1.122 1.122 0 0 0 .812.185 17.212 17.212 0 0 0 2.116-.281l2.04-.34a21.642 21.642 0 0 0 2.358-.467 1.964 1.964 0 0 0 1.018-.569 1.964 1.964 0 0 0 .394-1.1 21.639 21.639 0 0 0 .073-2.4V6.472a21.638 21.638 0 0 0-.073-2.4 1.964 1.964 0 0 0-.394-1.1 1.964 1.964 0 0 0-1.018-.566 21.638 21.638 0 0 0-2.358-.467l-2.04-.34a17.224 17.224 0 0 0-2.116-.281Z"></path>
+            </g>
+          </svg>
+          <span>Online Tutoring Platform</span>
+        </a>
+        <a href="tel:02034096410">Referrals Line: 0203 409 6410</a>
+      </div>
+    </div>
+
+    <header class="fs-site-header">
+      <a class="fs-brand" href="https://freshstartineducation.co.uk/" aria-label="Fresh Start in Education home">
+        <img class="fs-brand-logo" src="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE" alt="Fresh Start in Education">
+      </a>
+
+      <nav class="fs-main-nav" aria-label="Main navigation">
+        <a href="https://freshstartineducation.co.uk/local-authorities-and-schools/">LAs &amp; Schools</a>
+        <a href="https://freshstartineducation.co.uk/parents-and-carers/">Parents &amp; Carers</a>
+        <a href="https://freshstartineducation.co.uk/training/">Training</a>
+        <a href="https://freshstartineducation.co.uk/students/">Students</a>
+        <a href="https://freshstartineducation.co.uk/blog/">Blog</a>
+        <a class="fs-page-nav" href="/testimonies/catalogue">Testimony catalogue</a>
+        <a class="fs-nav-cta" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=fS7_V_C7Lk2juuG7Eu0NR7F3217BD1lIuPI2IwH58bFUQkhXSzBETU1BTTg3QjZTVDhZWVRYWEg4NC4u">Refer now</a>
+        <a class="fs-nav-secondary" href="https://freshstartineducation.co.uk/work-for-fsie/">Work for us</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="fs-library-hero" id="library">
+        <div class="fs-hero-copy">
+          <h1>Every fresh start <span>begins with a story.</span></h1>
+          <p class="fs-hero-intro">
+            Discover how personalised education creates the space for young people
+            to reconnect, rebuild confidence and imagine what comes next.
+          </p>
+          <a class="fs-hero-scroll" href="#stories">Explore their stories ↓</a>
+        </div>
+        <div class="fs-hero-image" role="img" aria-label="A young person smiling"></div>
+      </section>
+
+      <section class="fs-story-library" id="stories">
+        <div class="fs-section-heading">
+          <div>
+            <p class="fs-eyebrow">Latest testimonies</p>
+            <h2>
+              Discover our impact, and how together we can
+              <span class="fs-tagline-accent">inspire hope for a future.</span>
+            </h2>
+          </div>
+          <div class="fs-section-aside">
+            <p>Filter the five most recent testimonies by theme, or explore earlier stories in the catalogue.</p>
+            <a class="fs-page-switch" href="/testimonies/catalogue">Browse the testimony catalogue →</a>
+          </div>
+        </div>
+
+        <div class="fs-filter-bar" id="fs-filter-bar" aria-label="Filter stories by topic"></div>
+
+        <div class="fs-results-line" aria-live="polite">
+          <span id="fs-result-count"></span>
+          <button id="fs-clear-filter" type="button" hidden>Clear filter ×</button>
+        </div>
+
+        <div class="fs-story-grid" id="fs-story-grid"></div>
+      </section>
+
+      <section class="fs-impact-strip" id="our-impact">
+        <a
+          class="fs-impact-link"
+          href="https://schoolsweek.co.uk/a-child-who-drops-out-isnt-a-failure-they-just-need-support/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <p class="fs-impact-quote">
+            The most important thing isn’t what the child has missed but how the
+            adults around them deal with the stage they’re at now.
+          </p>
+          <p class="fs-impact-attribution">
+            Ed Robbins
+            <span>Fresh Start CEO</span>
+          </p>
+        </a>
+      </section>
+    </main>
+
+    <footer class="fs-site-footer">
+      <div>
+        <img class="fs-brand-logo" src="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE" alt="Fresh Start in Education">
+        <h2>Inspiring hope for a future.</h2>
+      </div>
+      <a href="https://freshstartineducation.co.uk/contact-us/">Start a conversation →</a>
+      <p class="fs-footer-small">
+        <span>© <span id="fs-current-year"></span> Fresh Start in Education</span>
+      </p>
+    </footer>
+  </div>
+
+  <div id="fs-story-view" hidden></div>
+
+  <a
+    class="fs-chat-shortcut"
+    href="https://freshstartineducation.co.uk/contact-us/#hs-chat-open"
+    aria-label="Have a question? Open Fresh Start live chat"
+    title="Have a question? Chat with us"
+  >
+    <span class="fs-chat-bubble" aria-hidden="true"></span>
+  </a>
+
+  <!-- Keep this MCAE variable in the layout template. Leave landing-page content blank. -->
+  <div class="fs-mcae-content-slot" aria-hidden="true">%%content%%</div>
+
+  <script>
+    /*
+      ================================================================
+      TESTIMONIES ARE INSERTED HERE BY scripts/build.mjs
+      ================================================================
+
+      imageUrl:
+        In content/testimonies.json, paste the public HTTPS image URL supplied
+        by MCAE Files.
+        Leave blank to display the person's initials as a placeholder.
+
+      redirectUrl:
+        Optional. Paste the MCAE Custom Redirect URL for this testimony.
+        The redirect target should be:
+        https://YOUR-TRACKER-DOMAIN/testimonies#story/STORY-SLUG
+        Leave blank while testing.
+
+      tags:
+        Add or remove keywords. Filter buttons are generated automatically.
+
+      publishedAt:
+        Use YYYY-MM-DD. The homepage automatically displays the five newest
+        testimonies, while a selected topic displays every matching testimony.
+    */
+    var STORIES = [
+  {
+    "slug": "leo-building-independence",
+    "name": "Leo",
+    "role": "Student testimony",
+    "headline": "Building independence, communication and confidence.",
+    "summary": "Since beginning with Fresh Start in Education, Leo has made meaningful progress in communication, life skills and greater independence.",
+    "quote": "While the progress may appear gradual, the impact has been significant.",
+    "tags": [
+      "Independence & life skills",
+      "Communication",
+      "SEND"
+    ],
+    "schoolGroup": "16+",
+    "publishedAt": "2026-07-31",
+    "readingTime": "5 min read",
+    "accent": "#84dade",
+    "initials": "L",
+    "placeholderName": "Leo",
+    "imageUrl": "",
+    "imageAlt": "Leo taking part in an education session",
+    "redirectUrl": "",
+    "isSample": false,
+    "privacyNote": "*Leo is a pseudonym. Some identifying details have been changed to protect the young person’s privacy.",
+    "paragraphs": [
+      "“Leo”* began his journey with Fresh Start, with Stuart as his first tutor. Leo has developmental needs that affect his communication and day-to-day functioning. He does not currently use spoken language and requires support to express his needs, choices and feelings. From the outset, his father was keen for him to build independence, develop his communication, and gain confidence in life skills with reduced support.",
+      "Three years on, at his most recent annual review, it was clear how much progress he has made. His father spoke of how pleased he is with his son’s continued development. While the progress may appear gradual, the impact has been significant. Leo now thrives on the structure of three hours of tuition each day, five days a week, with his tutor Elijah. Elijah has played a key role in encouraging Leo to be as independent as possible, always setting high expectations and giving him the chance to try before assuming something may be too difficult.",
+      "Leo has completed a range of ASDAN courses focused on independent living and life skills. Together, he and Elijah compile the evidence into a portfolio, which is moderated and then returned to Leo, who enjoys looking back at the work he has achieved. In observed sessions, it has been evident how much pride he takes in his progress. I have been lucky enough to carry out the past two observations, and it is always a pleasure to see the activities in which he is taking part.",
+      "Leo’s development is not confined to the classroom. He also takes part in visits out and about in the local community, which give him valuable opportunities to build independence and practise his skills in real-life settings. Alongside this, he has worked on his fitness during sessions and especially enjoys using the outdoor gym at the park, where his enthusiasm is always evident.",
+      "Communication has also been a major area of growth. Leo is steadily increasing the words he understands and can sign using Makaton, and he now has a vocabulary of at least 50 signs. Recently, he was able to communicate to his carers that he had an earache, which led to timely treatment and the discovery of an ear infection. This was a clear example of how his developing communication skills are making a real difference in his daily life.",
+      "This year, Leo is working towards further ASDAN courses. His progress shows how consistent support, high expectations, and the right opportunities can help him to continue developing valuable skills for greater independence."
+    ]
+  },
+  {
+    "slug": "eli-learning-to-trust-again",
+    "name": "Eli",
+    "role": "Student testimony",
+    "headline": "He began to trust “school” adults again.",
+    "summary": "After a traumatic start to education, Eli found safety, joy and confidence with Fresh Start before settling beautifully into a new school.",
+    "quote": "You’ve helped us all to trust “school” adults again and really start to thrive through learning in different ways.",
+    "tags": [
+      "Re-engagement & transition",
+      "Confidence & wellbeing",
+      "Emotional regulation",
+      "Communication"
+    ],
+    "schoolGroup": "Primary",
+    "publishedAt": "2026-07-30",
+    "readingTime": "5 min read",
+    "accent": "#8c7ec9",
+    "initials": "E",
+    "placeholderName": "Eli",
+    "imageUrl": "",
+    "imageAlt": "Eli taking part in an education session",
+    "redirectUrl": "",
+    "isSample": false,
+    "privacyNote": "*Eli is a pseudonym. Some identifying details have been changed to protect the young person’s privacy.",
+    "paragraphs": [
+      "“Eli”* is a bright and affectionate child who needs support with attention and concentration, speech and communication, learning, emotional regulation and social interaction. He also experiences difficulties with fluency when speaking. Before coming to Fresh Start in Education, his experience of school had been deeply traumatic. He had faced multiple fixed-term exclusions because of unsafe and challenging behaviours, and there were numerous incidents in which he was physically held. His placement with his school eventually broke down completely.",
+      "His mum made the decision to remove him from school altogether, with her happy and joyous little boy disappearing before her eyes. By the time we met her, she was at her absolute wits’ end.",
+      "From that very first moment, this became a true team effort. After the IEEP was completed, the Referrals team began the matching process, and Recruitment found the perfect new Education Specialists. Shirav reassured Mum by answering her questions. Finally, Shirav and Mike became Eli’s Education Specialists.",
+      "Eli’s first session took place in an unfamiliar school building with adults he had never met. Yet Shirav and Mike instantly made him feel safe. They gently eased him in with creative ideas from the IEEP, meeting him exactly where he was. He walked in with a huge smile and waved Mum off without a second thought. Mum later told us she drove around the corner, parked up, and cried with relief.",
+      "He came out of that first session giggling, telling Mum he liked it so much he would probably come back tomorrow. And he did.",
+      "Session after session, Eli arrived smiling. He enjoyed himself. He learned. He laughed. He grew in confidence. He began to trust adults again. He re-engaged with learning in a way school had not been able to achieve for him before.",
+      "Shirav and Mike worked tirelessly to shape an environment that worked for him. With ongoing communication between the Education Specialist team, the office, and his previous school, we were able to help him access speech and language therapy, something he had never managed in a mainstream setting. Slowly, the little boy Mum was so terrified of losing began to shine again.",
+      "Only a few weeks into his Fresh Start sessions, Mum felt confident enough to begin looking at future school placements. One school agreed to let her visit. Mum proudly shared the progress Eli was making with Fresh Start, and the difference in him was undeniable.",
+      "The very next day, while Eli was in session, we received a call from the local authority: the school wanted him and wanted him to start on Monday. Shirav and Mike acted immediately, putting together a proper goodbye and ensuring his progress book was ready to go.",
+      "Eli has now completed his first week at his new school. He has settled beautifully. He has even made a new friend.",
+      "Mum told us: “Thank you all so much. I honestly can’t thank Shirav, Mike and the team enough. Eli really did get a horrendously bad start to education, but you took the time to understand and really get to know him. He has settled in the last few days extremely well. I can’t help but think that is because of the fantastic work Shirav and Mike did with him. You’ve helped us all to trust ‘school’ adults again and really start to thrive through learning in different ways. Please pass on my thanks to Shirav and Mike. They are fabulous people, and I wish them all the best in the future.”",
+      "This placement is a shining example of what Fresh Start can be at its very best: compassionate, skilled, child-centred practice that makes a life-changing difference."
+    ]
+  },
+  {
+    "slug": "charlotte-the-perfect-match",
+    "name": "Charlotte",
+    "role": "Student testimony",
+    "headline": "The perfect match helped Charlotte become the star of her own story.",
+    "summary": "A carefully considered referral match brought together Charlotte and an Education Specialist who shared her love of theatre, helping her confidence, communication and learning blossom.",
+    "quote": "From the very first session, something wonderful happened.",
+    "tags": [
+      "Referral matching",
+      "Communication",
+      "Confidence & wellbeing",
+      "SEND"
+    ],
+    "schoolGroup": "16+",
+    "publishedAt": "2026-07-29",
+    "readingTime": "5 min read",
+    "accent": "#6956b8",
+    "initials": "C",
+    "placeholderName": "Charlotte",
+    "imageUrl": "",
+    "imageAlt": "Charlotte taking part in an education session",
+    "redirectUrl": "",
+    "isSample": false,
+    "privacyNote": "*Charlotte is a pseudonym. Some identifying details have been changed to protect the young person’s privacy.",
+    "paragraphs": [
+      "Our story begins with “Charlotte”*, who was referred to Fresh Start in Education. She had struggled to transition to college because there was not enough support in place when she moved on from her specialist school.",
+      "Charlotte has complex developmental needs that affect her learning, attention and day-to-day life. She also experiences significant anxiety, which can make it very difficult for her to leave the house. Engaging with new people has felt like facing a giant ogre, and the only person she has been able to communicate with confidently is her wonderful mum. With everyone else, she uses her trusty communication board, her very own enchanted prop.",
+      "It was important to find an Education Specialist with the experience and skills to support Charlotte’s attention, emotional wellbeing and learning needs. We also needed someone who could build a positive, trusting relationship with her, make learning enjoyable and help her feel less isolated.",
+      "We found the perfect match in Sabrina. A former primary school teacher, Sabrina had a wealth of experience supporting children with special educational needs, social, emotional and mental health needs, and learning difficulties. She was extremely child-centred, bubbly and enthusiastic. Her many hobbies and interests also made her an excellent match for Charlotte.",
+      "But all great matches need a sprinkle of referral magic. Sabrina not only understood Charlotte’s needs; she also shared her passion, her true love: the theatre. Oh yes, she did! As if that were not magical enough, Sabrina happened to be rehearsing for a local pantomime, playing the part of a princess. That certainly caught Charlotte’s imagination.",
+      "Sessions began shortly after the referral was received. From the very first session, something wonderful happened: Charlotte took an instant liking to Sabrina. Oh yes, she did! Her mum even called to say how lovely, professional and perfectly matched Sabrina was. Charlotte spent that first session beaming from ear to ear and joining in with every task with the enthusiasm of an audience shouting, ‘He’s behind you!’",
+      "As the sessions continued, Charlotte blossomed. Her confidence grew like a magic beanstalk, reaching new heights each day. She began showing wonderful progress in numeracy, letter formation and life skills. Charlotte tackled each activity with courage, joy and a determination that would make any fairy godmother proud.",
+      "Then came a moment straight out of a pantomime dream. During her first break, Charlotte chose dancing. Sabrina, ever the theatrical princess, asked whether she would like to learn part of a dance from the pantomime she was rehearsing for. Charlotte’s eyes lit up brighter than the Christmas star. She followed along beautifully, mimicking Sabrina’s movements with care, confidence and a smile that could steal the show. It was pure panto magic.",
+      "And the magic did not stop there. With each session, Charlotte’s communication began to transform. Her speech became clearer, especially with words such as ‘yes’ and ‘no’. Every now and then, she surprised everyone with words such as ‘why’ and ‘bye’, tiny words with enormous meaning and enormous heart.",
+      "So, as our curtain falls for now, Charlotte stands not as a character in a story but as a true star in her own right, growing, learning and shining more brilliantly each week. With Sabrina’s support, her mum’s love and her own inner sparkle, Charlotte is proving what can happen when the right match is made from the very beginning."
+    ]
+  },
+  {
+    "slug": "jason-gcse-results",
+    "name": "Jason",
+    "role": "Student testimony",
+    "headline": "From overwhelming exam anxiety to eight GCSEs and sixth form.",
+    "summary": "With focused support, Jason prepared for and completed every GCSE exam he had planned, opening the way to sixth form and his ambition to work and study in STEM.",
+    "quote": "We are unbelievably proud of him, and he is really proud of himself.",
+    "tags": [
+      "Academic progress",
+      "Emotional regulation",
+      "Confidence & wellbeing"
+    ],
+    "schoolGroup": "Secondary",
+    "publishedAt": "2026-07-28",
+    "readingTime": "3 min read",
+    "accent": "#24596b",
+    "initials": "J",
+    "placeholderName": "Jason",
+    "imageUrl": "",
+    "imageAlt": "Jason preparing for his GCSE examinations",
+    "redirectUrl": "",
+    "isSample": false,
+    "privacyNote": "*Jason is a pseudonym. Some identifying details have been changed to protect the young person’s privacy.",
+    "paragraphs": [
+      "For a couple of months between February and May, I had the privilege of supporting a young man named “Jason”* to prepare for his GCSE examinations. The provision challenged my own perception of my professional skill set, and I confess that I had concerns going into it.",
+      "Those concerns were compounded by reports that Jason was unable to cope with even hearing the word ‘exam’. His anxiety around examinations had been so significant that his school had been unable to keep him safe when he last attended.",
+      "Delivering the provision turned out to be an absolute pleasure. Jason worked incredibly hard to prepare for his examinations in May, at which point my involvement ended.",
+      "At the end of the examination season, his mum updated the Education Coordinator to let us know that Jason had managed to sit every exam he had planned.",
+      "When the results were published, Jason had achieved a strong range of grades across a broad mix of subjects.",
+      "Jason’s mum told us: ‘We are unbelievably proud of him, and he is really proud of himself. Jason is really excited about starting his next academic chapter next week. He is now in a much better place mentally and feels more equipped to tackle being in an educational setting and the next chapter.’",
+      "Despite only a brief involvement with Jason, I, too, feel proud of him. I am delighted that he can now progress towards his desired career in STEM. It fits perfectly with his ambition to have a positive impact on the planet by helping to mitigate some of the environmental damage done by previous generations."
+    ]
+  },
+  {
+    "slug": "jacob-learning-to-regulate-and-thrive",
+    "name": "Jacob",
+    "role": "Student testimony",
+    "headline": "He is like a different Jacob.",
+    "summary": "From needing intensive support to managing his emotions, enjoying community outings and preparing for a new school, Jacob has made extraordinary progress.",
+    "quote": "He is like a different Jacob.",
+    "tags": [
+      "Emotional regulation",
+      "Independence & life skills",
+      "Re-engagement & transition"
+    ],
+    "schoolGroup": "Secondary",
+    "publishedAt": "2026-07-27",
+    "readingTime": "4 min read",
+    "accent": "#58cdd2",
+    "initials": "J",
+    "placeholderName": "Jacob",
+    "imageUrl": "",
+    "imageAlt": "Jacob taking part in an education session",
+    "redirectUrl": "",
+    "isSample": false,
+    "privacyNote": "*Jacob is a pseudonym. Some identifying details have been changed to protect the young person’s privacy.",
+    "paragraphs": [
+      "When we first started working with “Jacob”*, he was struggling to regulate his behaviour and manage his big feelings. He was often verbally aggressive, struggled to follow the rules and routines of his previous education setting, and was occasionally physically aggressive towards staff.",
+      "His previous school requested an Education, Health and Care Plan and said that he could not access education without high levels of support. Ultimately, the setting concluded that it could no longer meet his needs.",
+      "Jacob started with Fresh Start with a three-to-one staffing ratio because of the significant risks associated with aggression and violent behaviour. During his second session, a physical intervention resulted in one member of staff deciding to step down.",
+      "This prompted a huge team effort across Recruitment and Referrals to find a new staff member and ask Carrie to become the lead tutor. After some time working at three-to-one, and having made significant strides, Jacob’s staffing ratio was reduced to two-to-one.",
+      "Carrie and Harriet worked brilliantly together over the following year, helping Jacob make substantial progress both academically and in his ability to self-regulate.",
+      "Jacob has had an amazing term and has come on leaps and bounds during his time with us. Originally, when he became dysregulated, he would often lash out or become verbally aggressive. He has now learned to put his head down on the desk and ask his tutors to support him, which helps him to calm down.",
+      "Until the week before half term, Jacob had never been out in the community during a session. His tutors took him to his favourite restaurant as a reward for how well he had done. They described how polite and helpful he was and how he thanked the restaurant staff for their help. He loved the experience and felt incredibly proud of himself.",
+      "After the outing, Mum told us how proud she was and how much Jacob had progressed since starting with Fresh Start. She joked that she was not sure who had been more excited about the treat, her or Jacob. Mum said that ‘he is like a different Jacob’ and thanked his tutors for all their hard work, recognising that this progress would not have been possible without them.",
+      "Jacob is looking forward to continuing his outings and has since visited the park to feed the ducks. He has also secured a place at a new school for September. We are waiting for the name of his new key worker so that we can support a smooth transition.",
+      "He has told his tutors that he is excited to show his new school everything he has learned and to make new friends to play with online. He says the only sad part is that his Education Specialists will not be at the new school with him."
+    ]
+  }
+];
+    var PAGE_KIND = "home";
+    var OTHER_PAGE_URL = "/testimonies/catalogue";
+    var OTHER_PAGE_SLUGS = [
+  "zane-building-trust-and-a-brighter-future"
+];
+
+    (function () {
+      "use strict";
+
+      var LATEST_STORIES = "Latest stories";
+      var ALL_TESTIMONIES = "All testimonies";
+      var activeTag = LATEST_STORIES;
+      var libraryView = document.getElementById("fs-library-view");
+      var storyView = document.getElementById("fs-story-view");
+      var storyGrid = document.getElementById("fs-story-grid");
+      var filterBar = document.getElementById("fs-filter-bar");
+      var resultCount = document.getElementById("fs-result-count");
+      var clearFilter = document.getElementById("fs-clear-filter");
+
+      document.getElementById("fs-current-year").textContent = new Date().getFullYear();
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function storyHref(story) {
+        return story.redirectUrl || ("#story/" + encodeURIComponent(story.slug));
+      }
+
+      function storyImage(story, portrait) {
+        if (story.imageUrl) {
+          return '<img src="' + escapeHtml(story.imageUrl) + '" alt="' +
+            escapeHtml(story.imageAlt) + '" loading="' + (portrait ? "eager" : "lazy") + '">';
+        }
+
+        var placeholderText = story.placeholderName || story.initials;
+        var placeholderClass = story.placeholderName ? " fs-name-placeholder" : "";
+        if (story.placeholderName && story.placeholderName.length > 5) {
+          placeholderClass += " fs-long-name-placeholder";
+        }
+
+        return (
+          '<div class="' + (portrait ? "fs-portrait-shape" : "fs-visual-ring") + '" aria-hidden="true"></div>' +
+          '<span class="' + (portrait ? "fs-portrait-initials" : "fs-card-initials") +
+          placeholderClass + '" aria-hidden="true">' + escapeHtml(placeholderText) + "</span>"
+        );
+      }
+
+      function allTags() {
+        var seen = {};
+        var tags = PAGE_KIND === "home" ? [LATEST_STORIES] : [ALL_TESTIMONIES];
+
+        STORIES.forEach(function (story) {
+          story.tags.forEach(function (tag) {
+            if (!seen[tag]) {
+              seen[tag] = true;
+              tags.push(tag);
+            }
+          });
+        });
+
+        return tags;
+      }
+
+      function renderFilters() {
+        filterBar.innerHTML = allTags().map(function (tag) {
+          var selected = activeTag === tag;
+          return (
+            '<button class="fs-filter' + (selected ? " fs-active" : "") +
+            '" type="button" data-tag="' + escapeHtml(tag) +
+            '" aria-pressed="' + selected + '">' + escapeHtml(tag) + "</button>"
+          );
+        }).join("");
+      }
+
+      function renderLibrary() {
+        var mostRecentFirst = STORIES.slice().sort(function (first, second) {
+          return new Date(second.publishedAt).getTime() -
+            new Date(first.publishedAt).getTime();
+        });
+        var filtered;
+        if (activeTag === LATEST_STORIES) {
+          filtered = mostRecentFirst.slice(0, 5);
+        } else if (activeTag === ALL_TESTIMONIES) {
+          filtered = mostRecentFirst;
+        } else {
+          filtered = mostRecentFirst.filter(function (story) {
+            return story.tags.indexOf(activeTag) !== -1;
+          });
+        }
+
+        if (activeTag === LATEST_STORIES) {
+          resultCount.textContent = "Showing " + filtered.length + " most recent " +
+            (filtered.length === 1 ? "story" : "stories");
+        } else if (activeTag === ALL_TESTIMONIES) {
+          resultCount.textContent = "Showing " + filtered.length +
+            (filtered.length === 1 ? " testimony" : " testimonies");
+        } else {
+          resultCount.textContent = filtered.length +
+            (filtered.length === 1 ? " story tagged " : " stories tagged ") + activeTag;
+        }
+        clearFilter.hidden = activeTag === LATEST_STORIES;
+
+        storyGrid.innerHTML = filtered.map(function (story, index) {
+          var featured = index === 0 && activeTag === LATEST_STORIES;
+          var tags = story.tags.slice(0, 2).map(function (tag) {
+            return '<span class="fs-tag">' + escapeHtml(tag) + "</span>";
+          }).join("");
+
+          if (story.tags.length > 2) {
+            tags += '<span class="fs-tag">+' + (story.tags.length - 2) + "</span>";
+          }
+
+          return (
+            '<article class="fs-story-card' + (featured ? " fs-featured" : "") +
+            '" style="--story-accent:' + escapeHtml(story.accent) + '">' +
+              '<a class="fs-story-link" href="' + escapeHtml(storyHref(story)) +
+              '" data-story-slug="' + escapeHtml(story.slug) +
+              '" aria-label="Read ' + escapeHtml(story.name) + '’s story: ' +
+              escapeHtml(story.headline) + '">' +
+                '<div class="fs-card-visual">' + storyImage(story, false) + "</div>" +
+                '<div class="fs-card-content">' +
+                  '<div class="fs-card-meta"><span>' + escapeHtml(story.role) +
+                  "</span><span>" + escapeHtml(story.readingTime) + "</span></div>" +
+                  "<h3>" + escapeHtml(story.headline) + "</h3>" +
+                  "<p>" + escapeHtml(story.summary) + "</p>" +
+                  '<div class="fs-card-footer"><div class="fs-tag-row">' + tags +
+                  '</div><span class="fs-card-arrow" aria-hidden="true">↗</span></div>' +
+                "</div>" +
+              "</a>" +
+            "</article>"
+          );
+        }).join("");
+      }
+
+      function findStory(slug) {
+        for (var i = 0; i < STORIES.length; i += 1) {
+          if (STORIES[i].slug === slug) return STORIES[i];
+        }
+        return null;
+      }
+
+      function renderStory(story) {
+        var currentIndex = STORIES.indexOf(story);
+        var nextStory = STORIES[(currentIndex + 1) % STORIES.length];
+        var tags = story.tags.map(function (tag) {
+          return '<span class="fs-tag">' + escapeHtml(tag) + "</span>";
+        }).join("");
+        var paragraphs = story.paragraphs.map(function (paragraph) {
+          return "<p>" + escapeHtml(paragraph) + "</p>";
+        }).join("");
+        var placeholderNote = story.isSample === false
+          ? ""
+          : '<div class="fs-placeholder-note"><strong>Sample content</strong>' +
+            "This testimony is illustrative and ready to be replaced with approved copy.</div>";
+        var privacyNote = story.privacyNote
+          ? '<p class="fs-privacy-note">' + escapeHtml(story.privacyNote) + "</p>"
+          : "";
+
+        storyView.style.setProperty("--story-accent", story.accent);
+        storyView.innerHTML =
+          '<div class="fs-story-page" style="--story-accent:' + escapeHtml(story.accent) + '">' +
+            '<header class="fs-site-header">' +
+              '<a class="fs-brand" href="#library" aria-label="Return to the testimony library">' +
+                '<img class="fs-brand-logo" src="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE" alt="Fresh Start in Education">' +
+              "</a>" +
+            "</header>" +
+            '<article class="fs-story-article">' +
+              '<section class="fs-story-hero">' +
+                '<div class="fs-story-hero-copy">' +
+                  '<a class="fs-back-link" href="#library">← TESTIMONY LIBRARY</a>' +
+                  '<div class="fs-story-meta"><span>' + escapeHtml(story.role) +
+                  "</span><span> • " + escapeHtml(story.readingTime) + "</span></div>" +
+                  "<h1>" + escapeHtml(story.headline) + "</h1>" +
+                  '<p class="fs-story-summary">' + escapeHtml(story.summary) + "</p>" +
+                  '<div class="fs-tag-row">' + tags + "</div>" +
+                "</div>" +
+                '<div class="fs-story-portrait">' + storyImage(story, true) + "</div>" +
+              "</section>" +
+              '<section class="fs-story-body">' +
+                '<aside class="fs-story-identity">' +
+                  "<h2>" + escapeHtml(story.name) + "’s journey</h2>" +
+                  "<p>Student testimony</p>" +
+                  "<p>" + escapeHtml(story.schoolGroup) + "</p>" +
+                "</aside>" +
+                '<div class="fs-story-prose">' +
+                  "<blockquote>“" + escapeHtml(story.quote) + "”</blockquote>" +
+                  paragraphs +
+                  placeholderNote +
+                  privacyNote +
+                "</div>" +
+              "</section>" +
+              '<footer class="fs-story-next">' +
+                '<div><p class="fs-eyebrow">Continue reading</p><h2>' +
+                escapeHtml(nextStory.headline) + "</h2></div>" +
+                '<a class="fs-round-arrow" href="' + escapeHtml(storyHref(nextStory)) +
+                '" data-story-slug="' + escapeHtml(nextStory.slug) +
+                '" aria-label="Read ' + escapeHtml(nextStory.name) + '’s story">→</a>' +
+              "</footer>" +
+            "</article>" +
+          "</div>";
+
+        libraryView.hidden = true;
+        storyView.hidden = false;
+        document.body.classList.add("fs-story-open");
+        document.title = story.name + "’s story | Fresh Start in Education";
+
+        window.scrollTo(0, 0);
+      }
+
+      function showLibrary() {
+        libraryView.hidden = false;
+        storyView.hidden = true;
+        storyView.innerHTML = "";
+        document.body.classList.remove("fs-story-open");
+        document.title = "Real stories | Fresh Start in Education";
+        if (window.location.hash === "#library") {
+          window.scrollTo(0, 0);
+        }
+      }
+
+      function syncRoute() {
+        var match = window.location.hash.match(/^#story\/(.+)$/);
+        if (!match) {
+          showLibrary();
+          return;
+        }
+
+        var story = findStory(decodeURIComponent(match[1]));
+        if (story) {
+          renderStory(story);
+        } else if (OTHER_PAGE_SLUGS.indexOf(decodeURIComponent(match[1])) !== -1) {
+          window.location.replace(OTHER_PAGE_URL + "#story/" + encodeURIComponent(decodeURIComponent(match[1])));
+        } else {
+          showLibrary();
+        }
+      }
+
+      filterBar.addEventListener("click", function (event) {
+        var button = event.target.closest("[data-tag]");
+        if (!button) return;
+        activeTag = button.getAttribute("data-tag");
+        renderFilters();
+        renderLibrary();
+      });
+
+      clearFilter.addEventListener("click", function () {
+        activeTag = LATEST_STORIES;
+        renderFilters();
+        renderLibrary();
+      });
+
+      document.addEventListener("click", function (event) {
+        var storyLink = event.target.closest("[data-story-slug]");
+        if (!storyLink) return;
+
+        var slug = storyLink.getAttribute("data-story-slug");
+        var story = findStory(slug);
+
+        /* When a Custom Redirect URL is supplied, let MCAE handle the navigation. */
+        if (story && story.redirectUrl) return;
+
+        event.preventDefault();
+        window.location.hash = "story/" + encodeURIComponent(slug);
+      });
+
+      window.addEventListener("hashchange", syncRoute);
+
+      renderFilters();
+      renderLibrary();
+      syncRoute();
+    }());
+  </script>
+</body>
+</html>
