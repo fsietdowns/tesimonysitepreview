@@ -4,12 +4,14 @@ This repository generates the Fresh Start in Education testimony homepage, testi
 
 ## Published structure
 
-- `docs/index.html` — GitHub Pages preview of the five most recent testimonies.
-- `docs/catalogue/index.html` — GitHub Pages preview of every older testimony.
+- `index.html` — GitHub Pages preview of the five most recent testimonies.
+- `catalogue/index.html` — GitHub Pages preview of every older testimony.
 - `mcae/homepage-layout-template.html` — complete Classic MCAE layout-template code for the homepage.
 - `mcae/catalogue-layout-template.html` — complete Classic MCAE layout-template code for the catalogue.
 
-The GitHub previews include `noindex` metadata and a restrictive `robots.txt`. They are still accessible to anyone who has permission to view the Pages site.
+GitHub Pages publishes from the root of the `main` branch. The previews include
+`noindex` metadata and a restrictive `robots.txt`. They are still accessible to
+anyone who has the Pages URL.
 
 ## Adding a testimony
 

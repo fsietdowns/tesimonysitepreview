@@ -29,14 +29,14 @@ const pageDefinitions = [
     stories: homeStories,
     otherPageSlugs: catalogueStories.map(({ slug }) => slug),
     preview: true,
-    output: path.join(repositoryRoot, "docs", "index.html"),
+    output: path.join(repositoryRoot, "index.html"),
   },
   {
     kind: "catalogue",
     stories: catalogueStories,
     otherPageSlugs: homeStories.map(({ slug }) => slug),
     preview: true,
-    output: path.join(repositoryRoot, "docs", "catalogue", "index.html"),
+    output: path.join(repositoryRoot, "catalogue", "index.html"),
   },
   {
     kind: "home",

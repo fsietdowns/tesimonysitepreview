@@ -10,8 +10,8 @@ const expectedNewestFirst = [...sourceStories].sort((a, b) =>
 );
 
 const outputs = {
-  previewHome: await read("docs/index.html"),
-  previewCatalogue: await read("docs/catalogue/index.html"),
+  previewHome: await read("index.html"),
+  previewCatalogue: await read("catalogue/index.html"),
   mcaeHome: await read("mcae/homepage-layout-template.html"),
   mcaeCatalogue: await read("mcae/catalogue-layout-template.html"),
 };
