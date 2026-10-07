@@ -21,34 +21,35 @@ const newestFirst = [...sourceStories].sort((first, second) =>
   second.publishedAt.localeCompare(first.publishedAt),
 );
 const homeStories = newestFirst.slice(0, HOME_STORY_COUNT);
-const catalogueStories = newestFirst.slice(HOME_STORY_COUNT);
+const archivedStories = newestFirst.slice(HOME_STORY_COUNT);
+const catalogueStories = newestFirst;
 
 const pageDefinitions = [
   {
     kind: "home",
     stories: homeStories,
-    otherPageSlugs: catalogueStories.map(({ slug }) => slug),
+    otherPageSlugs: archivedStories.map(({ slug }) => slug),
     preview: true,
     output: path.join(repositoryRoot, "index.html"),
   },
   {
     kind: "catalogue",
     stories: catalogueStories,
-    otherPageSlugs: homeStories.map(({ slug }) => slug),
+    otherPageSlugs: [],
     preview: true,
     output: path.join(repositoryRoot, "catalogue", "index.html"),
   },
   {
     kind: "home",
     stories: homeStories,
-    otherPageSlugs: catalogueStories.map(({ slug }) => slug),
+    otherPageSlugs: archivedStories.map(({ slug }) => slug),
     preview: false,
     output: path.join(repositoryRoot, "mcae", "homepage-layout-template.html"),
   },
   {
     kind: "catalogue",
     stories: catalogueStories,
-    otherPageSlugs: homeStories.map(({ slug }) => slug),
+    otherPageSlugs: [],
     preview: false,
     output: path.join(repositoryRoot, "mcae", "catalogue-layout-template.html"),
   },
@@ -70,7 +71,7 @@ function renderPage({ kind, stories, otherPageSlugs, preview }) {
     : "Testimony catalogue | Fresh Start in Education";
   const pageDescription = isHome
     ? "Read the five most recent Fresh Start in Education testimonies."
-    : "Browse the Fresh Start in Education testimony catalogue.";
+    : "Browse every Fresh Start in Education testimony in one complete catalogue.";
   const otherPageUrl = preview
     ? isHome
       ? "catalogue/"
@@ -220,8 +221,8 @@ function heroMarkup(kind) {
           <p class="fs-eyebrow">Testimony catalogue</p>
           <h1>Every story <span>deserves to be remembered.</span></h1>
           <p class="fs-hero-intro">
-            Explore earlier testimonies from young people and families supported
-            by Fresh Start in Education.
+            Explore every testimony from young people and families supported by
+            Fresh Start in Education.
           </p>
           <a class="fs-hero-scroll" href="#stories">Browse the catalogue ↓</a>
         </div>`;
@@ -234,8 +235,8 @@ function sectionHeadingMarkup(kind, otherPageUrl, otherPageLongLabel) {
     : `More stories of progress, possibility and
               <span class="fs-tagline-accent">fresh starts.</span>`;
   const supportingCopy = kind === "home"
-    ? "Filter the five most recent testimonies by theme, or explore earlier stories in the catalogue."
-    : "Filter the catalogue by theme to discover more results from our person-centred approach.";
+    ? "Filter the five most recent testimonies by theme, or explore the complete library in the catalogue."
+    : "Filter the complete catalogue by theme to discover more results from our person-centred approach.";
 
   return `        <div class="fs-section-heading">
           <div>

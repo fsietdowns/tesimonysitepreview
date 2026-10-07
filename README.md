@@ -5,7 +5,7 @@ This repository generates the Fresh Start in Education testimony homepage, testi
 ## Published structure
 
 - `index.html` — GitHub Pages preview of the five most recent testimonies.
-- `catalogue/index.html` — GitHub Pages preview of every older testimony.
+- `catalogue/index.html` — GitHub Pages preview of the complete testimony library.
 - `mcae/homepage-layout-template.html` — complete Classic MCAE layout-template code for the homepage.
 - `mcae/catalogue-layout-template.html` — complete Classic MCAE layout-template code for the catalogue.
 
@@ -22,7 +22,9 @@ anyone who has the Pages URL.
 5. Review the GitHub Pages homepage and catalogue.
 6. After approval, paste the two files from `mcae/` into their matching Classic Account Engagement layout templates.
 
-The build sorts stories by `publishedAt`. The newest five are written to the homepage; everything older is written to the catalogue. No manual moving or copying between pages is required.
+The build sorts stories by `publishedAt`. The newest five are written to the
+homepage, while every testimony is written to the complete catalogue. No manual
+moving or copying between pages is required.
 
 ## MCAE landing-page paths
 

@@ -27,13 +27,12 @@ assert.deepEqual(
 );
 assert.deepEqual(
   catalogueStories.map(({ slug }) => slug),
-  expectedNewestFirst.slice(5).map(({ slug }) => slug),
-  "The catalogue must contain every testimony older than the newest five.",
+  expectedNewestFirst.map(({ slug }) => slug),
+  "The catalogue must contain every testimony in newest-first order.",
 );
-assert.equal(
-  new Set([...homeStories, ...catalogueStories].map(({ slug }) => slug)).size,
-  sourceStories.length,
-  "Every source testimony must appear in exactly one generated page.",
+assert.ok(
+  homeStories.every(({ slug }) => catalogueStories.some((story) => story.slug === slug)),
+  "Every homepage testimony must also appear in the complete catalogue.",
 );
 
 for (const [name, html] of Object.entries(outputs)) {
