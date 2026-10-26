@@ -1,0 +1,434 @@
+/*
+  Fresh Start cookie consent prototype
+  All selectors are prefixed to avoid collisions with WordPress/theme styles.
+*/
+
+body.fs-consent-open {
+  overflow: hidden;
+}
+
+.fs-consent-layer[hidden],
+.fs-consent-panel[hidden],
+.fs-consent-toast[hidden],
+.fs-consent-settings[hidden] {
+  display: none !important;
+}
+
+.fs-consent-layer {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 10000;
+}
+
+.fs-consent-backdrop {
+  backdrop-filter: blur(8px);
+  background: rgba(16, 36, 43, 0.66);
+  inset: 0;
+  position: absolute;
+}
+
+.fs-consent-dialog {
+  background: #f8f7f5;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(10, 30, 38, 0.34);
+  color: #101820;
+  max-height: min(790px, calc(100vh - 48px));
+  max-width: 660px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+.fs-consent-brand {
+  align-items: center;
+  background: #24596b;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  min-height: 112px;
+  overflow: hidden;
+  padding: 18px 28px;
+  position: relative;
+}
+
+.fs-consent-brand:after {
+  border: 1px solid rgba(132, 218, 222, 0.42);
+  border-radius: 50%;
+  content: "";
+  height: 170px;
+  position: absolute;
+  right: 54px;
+  top: -95px;
+  transform: rotate(-18deg);
+  width: 235px;
+}
+
+.fs-consent-logo {
+  height: auto;
+  position: relative;
+  width: 150px;
+  z-index: 1;
+}
+
+.fs-consent-prototype-label {
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 7px 10px;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.fs-consent-body {
+  padding: 38px 40px 34px;
+}
+
+.fs-consent-eyebrow {
+  color: #786daa;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  margin: 0 0 15px;
+  text-transform: uppercase;
+}
+
+.fs-consent-dialog h2 {
+  color: #153943;
+  font-family: "Inter Tight", Arial, Helvetica, sans-serif;
+  font-size: clamp(34px, 6vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin: 0;
+}
+
+.fs-consent-intro {
+  color: #4d5a5f;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 20px 0 28px;
+  max-width: 560px;
+}
+
+.fs-consent-actions {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.fs-consent-button {
+  align-items: center;
+  border: 1px solid #24596b;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 750;
+  justify-content: center;
+  min-height: 50px;
+  padding: 12px 20px;
+  text-align: center;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.fs-consent-button:hover {
+  transform: translateY(-2px);
+}
+
+.fs-consent-button:focus-visible,
+.fs-consent-link:focus-visible,
+.fs-consent-settings:focus-visible,
+.fs-consent-switch input:focus-visible + .fs-consent-switch-track {
+  outline: 3px solid #e5b84a;
+  outline-offset: 3px;
+}
+
+.fs-consent-button-primary {
+  background: #786daa;
+  border-color: #786daa;
+  color: white;
+}
+
+.fs-consent-button-secondary {
+  background: transparent;
+  color: #24596b;
+}
+
+.fs-consent-button-quiet {
+  background: #e2dfec;
+  border-color: #e2dfec;
+  color: #24596b;
+}
+
+.fs-consent-manage-button {
+  background: transparent;
+  border: 0;
+  color: #24596b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 750;
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: 5px;
+  padding: 7px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.fs-consent-meta {
+  align-items: center;
+  border-top: 1px solid rgba(36, 89, 107, 0.16);
+  color: #647176;
+  display: flex;
+  font-size: 11px;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 18px;
+}
+
+.fs-consent-meta a {
+  color: #24596b;
+  font-weight: 750;
+  text-underline-offset: 3px;
+}
+
+.fs-consent-manage-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 22px;
+  justify-content: space-between;
+}
+
+.fs-consent-back {
+  background: transparent;
+  border: 0;
+  color: #24596b;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 0;
+}
+
+.fs-consent-list {
+  display: grid;
+  gap: 10px;
+  margin: 26px 0;
+}
+
+.fs-consent-choice {
+  align-items: center;
+  background: white;
+  border: 1px solid rgba(36, 89, 107, 0.15);
+  border-radius: 16px;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr auto;
+  padding: 17px 18px;
+}
+
+.fs-consent-choice-copy strong {
+  color: #153943;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.fs-consent-choice-copy span {
+  color: #687479;
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.fs-consent-switch {
+  display: inline-flex;
+  position: relative;
+}
+
+.fs-consent-switch input {
+  height: 1px;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.fs-consent-switch-track {
+  background: #c8ced0;
+  border-radius: 999px;
+  cursor: pointer;
+  display: block;
+  height: 28px;
+  position: relative;
+  transition: background 160ms ease;
+  width: 50px;
+}
+
+.fs-consent-switch-track:after {
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24);
+  content: "";
+  height: 22px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  transition: transform 160ms ease;
+  width: 22px;
+}
+
+.fs-consent-switch input:checked + .fs-consent-switch-track {
+  background: #786daa;
+}
+
+.fs-consent-switch input:checked + .fs-consent-switch-track:after {
+  transform: translateX(22px);
+}
+
+.fs-consent-switch input:disabled + .fs-consent-switch-track {
+  background: #24596b;
+  cursor: not-allowed;
+  opacity: 0.76;
+}
+
+.fs-consent-manage-actions {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.fs-consent-manage-actions .fs-consent-button-primary {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.fs-consent-chat-note {
+  background: rgba(132, 218, 222, 0.18);
+  border-radius: 14px;
+  color: #36535d;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 13px 15px;
+}
+
+.fs-consent-settings {
+  align-items: center;
+  background: #24596b;
+  border: 0;
+  border-radius: 999px;
+  bottom: 22px;
+  box-shadow: 0 8px 24px rgba(36, 89, 107, 0.24);
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 750;
+  gap: 8px;
+  left: 22px;
+  min-height: 44px;
+  padding: 10px 16px;
+  position: fixed;
+  z-index: 9990;
+}
+
+.fs-consent-settings-icon {
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  height: 17px;
+  position: relative;
+  width: 17px;
+}
+
+.fs-consent-settings-icon:after {
+  background: currentColor;
+  border-radius: 50%;
+  content: "";
+  height: 5px;
+  left: 4.5px;
+  position: absolute;
+  top: 4.5px;
+  width: 5px;
+}
+
+.fs-consent-toast {
+  background: #153943;
+  border-radius: 12px;
+  bottom: 82px;
+  box-shadow: 0 12px 30px rgba(21, 57, 67, 0.28);
+  color: white;
+  font-size: 13px;
+  left: 22px;
+  max-width: min(340px, calc(100vw - 44px));
+  padding: 13px 16px;
+  position: fixed;
+  z-index: 10010;
+}
+
+@media (max-width: 620px) {
+  .fs-consent-layer {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .fs-consent-dialog {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-height: 94vh;
+    max-width: none;
+  }
+
+  .fs-consent-brand {
+    min-height: 88px;
+    padding: 13px 20px;
+  }
+
+  .fs-consent-logo {
+    width: 126px;
+  }
+
+  .fs-consent-body {
+    padding: 28px 22px 24px;
+  }
+
+  .fs-consent-actions,
+  .fs-consent-manage-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .fs-consent-manage-actions .fs-consent-button-primary,
+  .fs-consent-manage-button {
+    grid-column: 1;
+  }
+
+  .fs-consent-choice {
+    padding: 15px;
+  }
+
+  .fs-consent-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fs-consent-settings {
+    bottom: 18px;
+    left: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fs-consent-button,
+  .fs-consent-switch-track,
+  .fs-consent-switch-track:after {
+    transition: none;
+  }
+}

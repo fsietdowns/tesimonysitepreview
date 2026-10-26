@@ -14,6 +14,7 @@ const outputs = {
   previewCatalogue: await read("catalogue/index.html"),
   mcaeHome: await read("mcae/homepage-layout-template.html"),
   mcaeCatalogue: await read("mcae/catalogue-layout-template.html"),
+  consentSnippet: await read("docs/fresh-start-consent-banner-snippet.html"),
 };
 
 const homeStories = extractStories(outputs.previewHome);
@@ -35,7 +36,7 @@ assert.ok(
   "Every homepage testimony must also appear in the complete catalogue.",
 );
 
-for (const [name, html] of Object.entries(outputs)) {
+for (const [name, html] of Object.entries(outputs).filter(([name]) => name !== "consentSnippet")) {
   assert.ok(!html.includes("__STORIES_JSON__"), `${name} contains an unresolved build marker.`);
   assert.ok(
     html.includes("https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=fS7_V_C7Lk2juuG7Eu0NR7F3217BD1lIuPI2IwH58bFUQkhXSzBETU1BTTg3QjZTVDhZWVRYWEg4NC4u"),
@@ -56,13 +57,24 @@ for (const [name, html] of Object.entries(outputs)) {
 for (const name of ["previewHome", "previewCatalogue"]) {
   assert.ok(outputs[name].includes('name="robots" content="noindex, nofollow, noarchive"'));
   assert.ok(!outputs[name].includes("<title>%%title%%</title>"));
+  assert.ok(outputs[name].includes('id="fs-consent-layer"'));
+  assert.ok(outputs[name].includes('id="fs-consent-settings"'));
+  assert.ok(outputs[name].includes('new CustomEvent("fs:consent-changed"'));
 }
 
 for (const name of ["mcaeHome", "mcaeCatalogue"]) {
   assert.ok(outputs[name].includes("<title>%%title%%</title>"));
   assert.ok(outputs[name].includes('content="%%description%%"'));
   assert.ok(outputs[name].includes(">%%content%%</div>"));
+  assert.ok(!outputs[name].includes('id="fs-consent-layer"'));
 }
+
+assert.ok(outputs.consentSnippet.includes("FRESH START COOKIE CONSENT PROTOTYPE"));
+assert.ok(outputs.consentSnippet.includes('id="fs-consent-mcae"'));
+assert.ok(outputs.consentSnippet.includes('id="fs-consent-google"'));
+assert.ok(outputs.consentSnippet.includes('id="fs-consent-meta"'));
+assert.ok(outputs.consentSnippet.includes('id="fs-consent-hubspot"'));
+assertScriptsCompile(outputs.consentSnippet, "consentSnippet");
 
 assert.ok(outputs.previewHome.includes('href="catalogue/"'));
 assert.ok(outputs.previewCatalogue.includes('href="../"'));

@@ -11,6 +11,18 @@ const template = await readFile(
   path.join(repositoryRoot, "src", "layout-template.html"),
   "utf8",
 );
+const consentStyles = await readFile(
+  path.join(repositoryRoot, "src", "cookie-consent.css"),
+  "utf8",
+);
+const consentMarkup = await readFile(
+  path.join(repositoryRoot, "src", "cookie-consent.html"),
+  "utf8",
+);
+const consentScript = await readFile(
+  path.join(repositoryRoot, "src", "cookie-consent.js"),
+  "utf8",
+);
 const sourceStories = JSON.parse(
   await readFile(path.join(repositoryRoot, "content", "testimonies.json"), "utf8"),
 );
@@ -60,6 +72,12 @@ for (const page of pageDefinitions) {
   await writeFile(page.output, renderPage(page), "utf8");
 }
 
+await writeFile(
+  path.join(repositoryRoot, "docs", "fresh-start-consent-banner-snippet.html"),
+  renderConsentSnippet(),
+  "utf8",
+);
+
 console.log(
   `Built ${homeStories.length} homepage testimonies and ${catalogueStories.length} catalogue testimonies.`,
 );
@@ -88,6 +106,27 @@ function renderPage({ kind, stories, otherPageSlugs, preview }) {
   const defaultFilter = isHome ? "LATEST_STORIES" : "ALL_TESTIMONIES";
 
   let html = template;
+
+  html = replaceOnce(
+    html,
+    "    /* __CONSENT_BANNER_STYLES__ */",
+    preview ? indentBlock(consentStyles.trim(), 4) : "    /* Consent banner is implemented by the main WordPress site. */",
+    "consent banner styles marker",
+  );
+  html = replaceOnce(
+    html,
+    "  <!-- __CONSENT_BANNER_MARKUP__ -->",
+    preview ? indentBlock(consentMarkup.trim(), 2) : "  <!-- Consent banner is implemented by the main WordPress site. -->",
+    "consent banner markup marker",
+  );
+  html = replaceOnce(
+    html,
+    "  <!-- __CONSENT_BANNER_SCRIPT__ -->",
+    preview
+      ? `  <script>\n${indentBlock(consentScript.trim(), 4)}\n  </script>`
+      : "  <!-- Consent banner is implemented by the main WordPress site. -->",
+    "consent banner script marker",
+  );
 
   html = replaceOnce(
     html,
@@ -203,6 +242,24 @@ function renderPage({ kind, stories, otherPageSlugs, preview }) {
   }
 
   return html;
+}
+
+function renderConsentSnippet() {
+  return [
+    "<!--",
+    "  FRESH START COOKIE CONSENT PROTOTYPE",
+    "  Demonstration code for contractor review; tracker adapters are deliberately inert.",
+    "  Replace each marked adapter with the production service code and verify in a staging environment.",
+    "-->",
+    "<style>",
+    consentStyles.trim(),
+    "</style>",
+    consentMarkup.trim(),
+    "<script>",
+    consentScript.trim(),
+    "</script>",
+    "",
+  ].join("\n");
 }
 
 function heroMarkup(kind) {
@@ -356,6 +413,14 @@ function replacePattern(input, pattern, replacement, label) {
     throw new Error(`Expected one ${label} in the layout template; found ${matches?.length ?? 0}.`);
   }
   return input.replace(pattern, replacement);
+}
+
+function indentBlock(input, spaces) {
+  const indentation = " ".repeat(spaces);
+  return input
+    .split("\n")
+    .map((line) => line ? `${indentation}${line}` : "")
+    .join("\n");
 }
 
 function escapeHtml(value) {

@@ -13,6 +13,21 @@ GitHub Pages publishes from the root of the `main` branch. The previews include
 `noindex` metadata and a restrictive `robots.txt`. They are still accessible to
 anyone who has the Pages URL.
 
+## Cookie consent prototype
+
+The GitHub Pages preview includes a branded, accessible cookie-consent prototype.
+It stores demonstration choices locally and exposes an `fs:consent-changed` event,
+but deliberately does not load real production trackers from the preview domain.
+
+- Source: `src/cookie-consent.css`, `src/cookie-consent.html`, and
+  `src/cookie-consent.js`
+- Contractor handoff: `docs/fresh-start-consent-banner-snippet.html`
+- Implementation brief: `docs/cookie-consent-contractor-brief.md`
+
+The banner is excluded from the generated MCAE layout templates because consent
+must be controlled once by the main WordPress site rather than separately by an
+embedded MCAE page.
+
 ## Adding a testimony
 
 1. Add the testimony once to `content/testimonies.json`.

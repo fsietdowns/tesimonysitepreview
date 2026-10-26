@@ -1,0 +1,146 @@
+<div class="fs-consent-layer" id="fs-consent-layer" hidden>
+  <div class="fs-consent-backdrop" aria-hidden="true"></div>
+  <section
+    class="fs-consent-dialog"
+    id="fs-consent-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="fs-consent-title"
+    aria-describedby="fs-consent-description"
+    tabindex="-1"
+  >
+    <div class="fs-consent-brand">
+      <img
+        class="fs-consent-logo"
+        src="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE"
+        alt="Fresh Start in Education"
+      >
+      <span class="fs-consent-prototype-label">Prototype</span>
+    </div>
+
+    <div class="fs-consent-body">
+      <div class="fs-consent-panel" id="fs-consent-overview">
+        <p class="fs-consent-eyebrow">Your privacy, your choice</p>
+        <h2 id="fs-consent-title">Choose what helps us improve</h2>
+        <p class="fs-consent-intro" id="fs-consent-description">
+          We use optional cookies to understand how our website is used and to improve
+          our communications. You can accept all, reject optional cookies, or choose
+          each service individually.
+        </p>
+
+        <div class="fs-consent-actions">
+          <button class="fs-consent-button fs-consent-button-primary" id="fs-consent-accept" type="button">
+            Accept all
+          </button>
+          <button class="fs-consent-button fs-consent-button-secondary" id="fs-consent-reject" type="button">
+            Reject optional
+          </button>
+          <button class="fs-consent-manage-button fs-consent-link" id="fs-consent-manage" type="button">
+            Manage choices
+          </button>
+        </div>
+
+        <div class="fs-consent-meta">
+          <span>Necessary website features are always available.</span>
+          <a href="https://freshstartineducation.co.uk/content/uploads/Web-Privacy-and-Cookie-Policy-2025.pdf" target="_blank" rel="noopener noreferrer">Cookie policy</a>
+        </div>
+      </div>
+
+      <div class="fs-consent-panel" id="fs-consent-manage-panel" hidden>
+        <div class="fs-consent-manage-header">
+          <div>
+            <p class="fs-consent-eyebrow">Manage cookies</p>
+            <h2>Make your choices</h2>
+          </div>
+          <button class="fs-consent-back fs-consent-link" id="fs-consent-back" type="button">← Back</button>
+        </div>
+
+        <div class="fs-consent-list">
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Necessary</strong>
+              <span>Security, accessibility and your saved cookie choices.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Necessary cookies are always active</span>
+              <input type="checkbox" checked disabled>
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>MCAE / Pardot</strong>
+              <span>Helps us understand engagement with our content and communications.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow MCAE or Pardot tracking</span>
+              <input id="fs-consent-mcae" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Google</strong>
+              <span>Measures visits and campaign performance.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow Google analytics and advertising cookies</span>
+              <input id="fs-consent-google" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Meta</strong>
+              <span>Measures advertising performance on Facebook and Instagram.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow Meta advertising cookies</span>
+              <input id="fs-consent-meta" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>HubSpot</strong>
+              <span>Remembers chat history and provides optional website analytics.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow optional HubSpot cookies</span>
+              <input id="fs-consent-hubspot" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+        <p class="fs-consent-chat-note">
+          Live chat remains available when optional HubSpot cookies are off; it should
+          run in the contractor-configured privacy mode without retaining cross-visit history.
+        </p>
+
+        <div class="fs-consent-manage-actions">
+          <button class="fs-consent-button fs-consent-button-primary" id="fs-consent-save" type="button">
+            Save my choices
+          </button>
+          <button class="fs-consent-button fs-consent-button-quiet" id="fs-consent-manage-accept" type="button">
+            Accept all
+          </button>
+          <button class="fs-consent-button fs-consent-button-secondary" id="fs-consent-manage-reject" type="button">
+            Reject optional
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<button class="fs-consent-settings" id="fs-consent-settings" type="button" hidden>
+  <span class="fs-consent-settings-icon" aria-hidden="true"></span>
+  Cookie settings
+</button>
+
+<div class="fs-consent-toast" id="fs-consent-toast" role="status" aria-live="polite" hidden></div>
