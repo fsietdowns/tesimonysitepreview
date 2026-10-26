@@ -1203,9 +1203,11 @@
       border-radius: 28px;
       box-shadow: 0 30px 90px rgba(10, 30, 38, 0.34);
       color: #101820;
+      display: flex;
+      flex-direction: column;
       max-height: min(790px, calc(100vh - 48px));
       max-width: 660px;
-      overflow: auto;
+      overflow: hidden;
       position: relative;
       width: 100%;
     }
@@ -1215,6 +1217,7 @@
       background: #24596b;
       color: white;
       display: flex;
+      flex: 0 0 auto;
       justify-content: flex-start;
       min-height: 112px;
       overflow: hidden;
@@ -1242,7 +1245,29 @@
     }
 
     .fs-consent-body {
+      min-height: 0;
+      overflow-y: auto;
       padding: 38px 40px 34px;
+      scrollbar-color: #786daa rgba(36, 89, 107, 0.08);
+      scrollbar-width: thin;
+    }
+
+    .fs-consent-body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    .fs-consent-body::-webkit-scrollbar-track {
+      background: rgba(36, 89, 107, 0.08);
+    }
+
+    .fs-consent-body::-webkit-scrollbar-thumb {
+      background: #786daa;
+      border: 3px solid #f8f7f5;
+      border-radius: 999px;
+    }
+
+    .fs-consent-body::-webkit-scrollbar-thumb:hover {
+      background: #655b98;
     }
 
     .fs-consent-eyebrow {
@@ -1812,7 +1837,7 @@
 
             <div class="fs-consent-choice">
               <div class="fs-consent-choice-copy">
-                <strong>Marketing &amp; communications</strong>
+                <strong>Marketing &amp; Communications</strong>
                 <span>Helps us understand which pages and communications are useful, so we can improve the information we share.</span>
               </div>
               <label class="fs-consent-switch">
