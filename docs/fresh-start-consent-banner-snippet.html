@@ -287,7 +287,7 @@ body.fs-consent-open {
 
 .fs-consent-manage-scroll {
   flex: 1 1 auto;
-  margin: 26px -40px 0 0;
+  margin: 26px -40px 18px 0;
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -371,6 +371,7 @@ body.fs-consent-open {
 
 .fs-consent-manage-actions {
   display: grid;
+  flex: 0 0 auto;
   gap: 10px;
   grid-template-columns: 1fr 1fr;
 }
@@ -627,18 +628,18 @@ body.fs-consent-open {
             Live chat remains available when optional HubSpot cookies are off; it should
             run in the contractor-configured privacy mode without retaining cross-visit history.
           </p>
+        </div>
 
-          <div class="fs-consent-manage-actions">
-            <button class="fs-consent-button fs-consent-button-primary" id="fs-consent-save" type="button">
-              Save my choices
-            </button>
-            <button class="fs-consent-button fs-consent-button-quiet" id="fs-consent-manage-accept" type="button">
-              Accept all
-            </button>
-            <button class="fs-consent-button fs-consent-button-secondary" id="fs-consent-manage-reject" type="button">
-              Reject optional
-            </button>
-          </div>
+        <div class="fs-consent-manage-actions">
+          <button class="fs-consent-button fs-consent-button-primary" id="fs-consent-save" type="button">
+            Save my choices
+          </button>
+          <button class="fs-consent-button fs-consent-button-quiet" id="fs-consent-manage-accept" type="button">
+            Accept all
+          </button>
+          <button class="fs-consent-button fs-consent-button-secondary" id="fs-consent-manage-reject" type="button">
+            Reject optional
+          </button>
         </div>
       </div>
     </div>
