@@ -106,32 +106,48 @@ body.fs-consent-open {
   flex-direction: column;
 }
 
-#fs-consent-overview,
-.fs-consent-manage-scroll {
-  scrollbar-color: #786daa rgba(36, 89, 107, 0.08);
-  scrollbar-width: thin;
+@supports not selector(::-webkit-scrollbar) {
+  #fs-consent-overview,
+  .fs-consent-manage-scroll {
+    scrollbar-color: #786daa rgba(36, 89, 107, 0.08);
+    scrollbar-width: thin;
+  }
 }
 
 #fs-consent-overview::-webkit-scrollbar,
 .fs-consent-manage-scroll::-webkit-scrollbar {
-  width: 12px;
+  width: 14px;
 }
 
 #fs-consent-overview::-webkit-scrollbar-track,
 .fs-consent-manage-scroll::-webkit-scrollbar-track {
   background: rgba(36, 89, 107, 0.08);
+  border-radius: 999px;
 }
 
 #fs-consent-overview::-webkit-scrollbar-thumb,
 .fs-consent-manage-scroll::-webkit-scrollbar-thumb {
-  background: #786daa;
+  background: linear-gradient(180deg, #8a7fbb 0%, #6a609d 100%);
   border: 3px solid #f8f7f5;
   border-radius: 999px;
+  min-height: 48px;
 }
 
 #fs-consent-overview::-webkit-scrollbar-thumb:hover,
 .fs-consent-manage-scroll::-webkit-scrollbar-thumb:hover {
-  background: #655b98;
+  background: linear-gradient(180deg, #786daa 0%, #594f8c 100%);
+}
+
+#fs-consent-overview::-webkit-scrollbar-button,
+.fs-consent-manage-scroll::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+#fs-consent-overview::-webkit-scrollbar-corner,
+.fs-consent-manage-scroll::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .fs-consent-eyebrow {
@@ -512,12 +528,12 @@ body.fs-consent-open {
 
     <div class="fs-consent-body">
       <div class="fs-consent-panel" id="fs-consent-overview">
-        <p class="fs-consent-eyebrow">Your privacy, your choice</p>
-        <h2 id="fs-consent-title">Choose what helps us improve</h2>
+        <p class="fs-consent-eyebrow">Your privacy</p>
+        <h2 id="fs-consent-title">Cookies on our website</h2>
         <p class="fs-consent-intro" id="fs-consent-description">
-          We use optional cookies to understand how our website is used and to improve
-          our communications. You can accept all, reject optional cookies, or choose
-          each service individually.
+          We use necessary cookies to make our website work. With your permission, we’d
+          also like to use optional cookies to understand how people use our website,
+          improve our communications and measure the effectiveness of our marketing.
         </p>
 
         <div class="fs-consent-actions">
@@ -533,17 +549,14 @@ body.fs-consent-open {
         </div>
 
         <div class="fs-consent-meta">
-          <span>Necessary website features are always available.</span>
+          <span>Necessary cookies are always active.</span>
           <a href="https://freshstartineducation.co.uk/content/uploads/Web-Privacy-and-Cookie-Policy-2025.pdf" target="_blank" rel="noopener noreferrer">Cookie policy</a>
         </div>
       </div>
 
       <div class="fs-consent-panel" id="fs-consent-manage-panel" hidden>
         <div class="fs-consent-manage-header">
-          <div>
-            <p class="fs-consent-eyebrow">Manage cookies</p>
-            <h2>Make your choices</h2>
-          </div>
+          <h2>Manage Cookies</h2>
           <button class="fs-consent-back fs-consent-link" id="fs-consent-back" type="button">← Back</button>
         </div>
 
