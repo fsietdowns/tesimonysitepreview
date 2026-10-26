@@ -65,6 +65,8 @@ for (const name of ["previewHome", "previewCatalogue"]) {
   assert.ok(!outputs[name].includes("Make your choices"));
   assert.ok(outputs[name].includes('new CustomEvent("fs:consent-changed"'));
   assert.ok(outputs[name].includes("Marketing &amp; Communications"));
+  assert.ok(outputs[name].includes("Live chat will still be available"));
+  assert.ok(!outputs[name].includes("contractor-configured"));
   assert.ok(!outputs[name].includes("fs-consent-prototype-label"));
 }
 
