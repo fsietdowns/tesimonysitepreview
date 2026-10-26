@@ -8,8 +8,8 @@ the proposed website consent banner. The combined demonstration snippet is in
 
 - Display a prominent modal before optional tracking starts.
 - Give **Accept all** and **Reject optional** equal prominence.
-- Provide **Manage choices** controls for MCAE/Pardot, Google, Meta and optional
-  HubSpot cookies.
+- Provide **Manage choices** controls for Marketing & Communications
+  (implemented through MCAE/Pardot), Google, Meta and optional HubSpot cookies.
 - Save the visitor's preference and provide a persistent **Cookie settings** button
   so the decision can be changed later.
 - Keep necessary website features available regardless of the selection.

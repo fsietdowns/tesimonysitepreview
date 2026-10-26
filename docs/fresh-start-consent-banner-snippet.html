@@ -55,7 +55,7 @@ body.fs-consent-open {
   background: #24596b;
   color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   min-height: 112px;
   overflow: hidden;
   padding: 18px 28px;
@@ -78,18 +78,6 @@ body.fs-consent-open {
   height: auto;
   position: relative;
   width: 150px;
-  z-index: 1;
-}
-
-.fs-consent-prototype-label {
-  border: 1px solid rgba(255, 255, 255, 0.46);
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  padding: 7px 10px;
-  position: relative;
-  text-transform: uppercase;
   z-index: 1;
 }
 
@@ -456,7 +444,6 @@ body.fs-consent-open {
         src="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE"
         alt="Fresh Start in Education"
       >
-      <span class="fs-consent-prototype-label">Prototype</span>
     </div>
 
     <div class="fs-consent-body">
@@ -511,11 +498,11 @@ body.fs-consent-open {
 
           <div class="fs-consent-choice">
             <div class="fs-consent-choice-copy">
-              <strong>MCAE / Pardot</strong>
-              <span>Helps us understand engagement with our content and communications.</span>
+              <strong>Marketing &amp; communications</strong>
+              <span>Helps us understand which pages and communications are useful, so we can improve the information we share.</span>
             </div>
             <label class="fs-consent-switch">
-              <span class="fs-sr-only">Allow MCAE or Pardot tracking</span>
+              <span class="fs-sr-only">Allow marketing and communications cookies</span>
               <input id="fs-consent-mcae" type="checkbox">
               <span class="fs-consent-switch-track" aria-hidden="true"></span>
             </label>
