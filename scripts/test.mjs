@@ -16,6 +16,13 @@ const outputs = {
   mcaeCatalogue: await read("mcae/catalogue-layout-template.html"),
   consentSnippet: await read("docs/fresh-start-consent-banner-snippet.html"),
 };
+const contractorCode = await read("Fresh-Start-Cookie-Consent-Contractor-Code.html");
+
+assert.equal(
+  contractorCode,
+  outputs.consentSnippet,
+  "The contractor handoff must exactly match the generated consent snippet.",
+);
 
 const homeStories = extractStories(outputs.previewHome);
 const catalogueStories = extractStories(outputs.previewCatalogue);
@@ -61,10 +68,16 @@ for (const name of ["previewHome", "previewCatalogue"]) {
   assert.ok(outputs[name].includes('id="fs-consent-settings"'));
   assert.ok(outputs[name].includes('class="fs-consent-manage-scroll"'));
   assert.ok(outputs[name].includes("Cookies on our website"));
-  assert.ok(outputs[name].includes("<h2>Manage Cookies</h2>"));
+  assert.ok(outputs[name].includes('<h2 id="fs-consent-manage-title">Manage Cookies</h2>'));
   assert.ok(!outputs[name].includes("Make your choices"));
   assert.ok(outputs[name].includes('new CustomEvent("fs:consent-changed"'));
+  assert.ok(outputs[name].includes('"default-denied"'));
+  assert.ok(outputs[name].includes("getEffective: function"));
+  assert.ok(outputs[name].includes("subscribe: function"));
+  assert.ok(outputs[name].includes('applyPreferences(emptyPreferences(false), "reset")'));
   assert.ok(outputs[name].includes("Marketing &amp; Communications"));
+  assert.ok(outputs[name].includes("Helps us understand how people find and use our website, measure the effectiveness of our campaigns and improve the online experience."));
+  assert.ok(outputs[name].includes("Helps us understand how people find and use our website through Facebook and Instagram, and improve the relevance of our communications."));
   assert.ok(outputs[name].includes("Live chat will still be available"));
   assert.ok(!outputs[name].includes("contractor-configured"));
   assert.ok(!outputs[name].includes("fs-consent-prototype-label"));
@@ -77,12 +90,21 @@ for (const name of ["mcaeHome", "mcaeCatalogue"]) {
   assert.ok(!outputs[name].includes('id="fs-consent-layer"'));
 }
 
-assert.ok(outputs.consentSnippet.includes("FRESH START COOKIE CONSENT PROTOTYPE"));
+assert.ok(outputs.consentSnippet.includes("FRESH START COOKIE CONSENT — CONTRACTOR INTEGRATION CODE"));
 assert.ok(outputs.consentSnippet.includes('id="fs-consent-mcae"'));
 assert.ok(outputs.consentSnippet.includes('id="fs-consent-google"'));
 assert.ok(outputs.consentSnippet.includes('id="fs-consent-meta"'));
 assert.ok(outputs.consentSnippet.includes('id="fs-consent-hubspot"'));
 assertScriptsCompile(outputs.consentSnippet, "consentSnippet");
+assertNoDuplicateIds(outputs.consentSnippet, "consentSnippet");
+assertAriaReferencesResolve(outputs.consentSnippet, "consentSnippet");
+assert.ok(
+  outputs.consentSnippet.indexOf("<script>") <
+    outputs.consentSnippet.indexOf('id="fs-consent-layer"'),
+  "The synchronous consent controller must appear before the banner markup.",
+);
+assert.ok(outputs.consentSnippet.includes("100dvh"));
+assert.ok(outputs.consentSnippet.includes("94dvh"));
 
 assert.ok(outputs.previewHome.includes('href="catalogue/"'));
 assert.ok(outputs.previewCatalogue.includes('href="../"'));
@@ -151,4 +173,23 @@ function assertScriptsCompile(html, name) {
   for (const [, script] of scripts) {
     Function(script);
   }
+}
+
+function assertNoDuplicateIds(html, name) {
+  const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+  const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+  assert.deepEqual([...new Set(duplicates)], [], `${name} contains duplicate element IDs.`);
+}
+
+function assertAriaReferencesResolve(html, name) {
+  const ids = new Set(
+    [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]),
+  );
+  const references = [
+    ...html.matchAll(/\saria-(?:labelledby|describedby)="([^"]+)"/g),
+  ].flatMap((match) => match[1].split(/\s+/));
+  assert.ok(
+    references.every((reference) => ids.has(reference)),
+    `${name} contains an unresolved ARIA reference.`,
+  );
 }

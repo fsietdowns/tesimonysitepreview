@@ -1,0 +1,1054 @@
+<!--
+  FRESH START COOKIE CONSENT — CONTRACTOR INTEGRATION CODE
+  The JavaScript must execute before optional trackers; it safely waits for the markup.
+  The controller publishes consent but does not install vendor trackers by itself.
+  Connect the marked adapter boundary before release and verify on staging.
+-->
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "fs_cookie_preferences_v1";
+  var CONSENT_VERSION = 1;
+  var SERVICE_NAMES = ["mcae", "google", "meta", "hubspot"];
+  var initialRecord = readPreferences();
+  var initialServices = initialRecord
+    ? copyServices(initialRecord.services)
+    : emptyPreferences(false);
+
+  /*
+    This synchronous state must run before optional trackers. It lets WordPress,
+    GTM or a dedicated adapter read the effective preference before deciding
+    whether a service may load. Unknown or invalid consent is always denied.
+  */
+  setConsentAttributes(initialServices);
+  window.FSConsentInitialState = {
+    hasDecision: Boolean(initialRecord),
+    services: copyServices(initialServices)
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialiseBanner, { once: true });
+  } else {
+    initialiseBanner();
+  }
+
+  function emptyPreferences(value) {
+    return {
+      mcae: value,
+      google: value,
+      meta: value,
+      hubspot: value
+    };
+  }
+
+  function copyServices(services) {
+    var result = {};
+    SERVICE_NAMES.forEach(function (service) {
+      result[service] = Boolean(services && services[service]);
+    });
+    return result;
+  }
+
+  function validPreferences(value) {
+    if (!value || value.version !== CONSENT_VERSION || !value.services) return false;
+    return SERVICE_NAMES.every(function (service) {
+      return typeof value.services[service] === "boolean";
+    });
+  }
+
+  function parsePreferences(value) {
+    if (!value) return null;
+    try {
+      var parsed = JSON.parse(value);
+      return validPreferences(parsed) ? parsed : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function readPreferences() {
+    try {
+      return parsePreferences(window.localStorage.getItem(STORAGE_KEY));
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setConsentAttributes(services) {
+    SERVICE_NAMES.forEach(function (service) {
+      document.documentElement.setAttribute(
+        "data-fs-consent-" + service,
+        services[service] ? "granted" : "denied"
+      );
+    });
+  }
+
+  function initialiseBanner() {
+    var elements = {
+      layer: document.getElementById("fs-consent-layer"),
+      dialog: document.getElementById("fs-consent-dialog"),
+      overview: document.getElementById("fs-consent-overview"),
+      managePanel: document.getElementById("fs-consent-manage-panel"),
+      settingsButton: document.getElementById("fs-consent-settings"),
+      toast: document.getElementById("fs-consent-toast"),
+      accept: document.getElementById("fs-consent-accept"),
+      reject: document.getElementById("fs-consent-reject"),
+      manage: document.getElementById("fs-consent-manage"),
+      back: document.getElementById("fs-consent-back"),
+      save: document.getElementById("fs-consent-save"),
+      manageAccept: document.getElementById("fs-consent-manage-accept"),
+      manageReject: document.getElementById("fs-consent-manage-reject"),
+      mcae: document.getElementById("fs-consent-mcae"),
+      google: document.getElementById("fs-consent-google"),
+      meta: document.getElementById("fs-consent-meta"),
+      hubspot: document.getElementById("fs-consent-hubspot")
+    };
+    var missingElements = Object.keys(elements).filter(function (name) {
+      return !elements[name];
+    });
+
+    if (missingElements.length) {
+      if (window.console && typeof window.console.error === "function") {
+        window.console.error(
+          "Fresh Start consent banner could not start. Missing elements: " +
+            missingElements.join(", ")
+        );
+      }
+      return;
+    }
+
+    var layer = elements.layer;
+    var dialog = elements.dialog;
+    var overview = elements.overview;
+    var managePanel = elements.managePanel;
+    var settingsButton = elements.settingsButton;
+    var toast = elements.toast;
+    var controls = {
+      mcae: elements.mcae,
+      google: elements.google,
+      meta: elements.meta,
+      hubspot: elements.hubspot
+    };
+    var previousFocus = null;
+    var toastTimer = null;
+    var savedPreferences = readPreferences();
+    var effectiveServices = savedPreferences
+      ? copyServices(savedPreferences.services)
+      : emptyPreferences(false);
+    var subscribers = [];
+
+    function writePreferences(services) {
+      var record = {
+        version: CONSENT_VERSION,
+        updatedAt: new Date().toISOString(),
+        services: copyServices(services)
+      };
+
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
+      } catch (error) {
+        /* The choice still applies to this page if storage is unavailable. */
+      }
+
+      savedPreferences = record;
+      return record;
+    }
+
+    function updateControls(services) {
+      SERVICE_NAMES.forEach(function (service) {
+        controls[service].checked = Boolean(services[service]);
+      });
+    }
+
+    function servicesFromControls() {
+      var services = {};
+      SERVICE_NAMES.forEach(function (service) {
+        services[service] = controls[service].checked;
+      });
+      return services;
+    }
+
+    function consentDetail(source) {
+      return {
+        source: source,
+        hasDecision: Boolean(savedPreferences),
+        services: copyServices(effectiveServices)
+      };
+    }
+
+    function applyPreferences(services, source) {
+      effectiveServices = copyServices(services);
+      setConsentAttributes(effectiveServices);
+
+      var detail = consentDetail(source);
+
+      /*
+        CONTRACTOR INTEGRATION POINT
+
+        This controller records and publishes choices; the WordPress integration
+        must still gate each service before it loads and implement grant/revoke:
+
+        - MCAE: use the Tracking & Consent API and remove the old unconditional
+          pd.js snippet. Grant with setOptIn(true), then send the page view; deny
+          or withdraw with revokeConsent().
+        - Google: establish Consent Mode v2 defaults before GTM/gtag and update
+          analytics_storage, ad_storage, ad_user_data and ad_personalization.
+        - Meta: remove the unconditional JavaScript and noscript PageView request.
+          Do not load or initialise the Pixel until Meta permission is granted,
+          or initialise it in a revoked state and grant only after permission.
+        - HubSpot: keep live chat available, while HubSpot privacy/chat settings
+          prevent optional analytics and cross-visit history without permission.
+
+        Adapters must be registered before optional trackers, must be idempotent,
+        and must remove or revoke applicable tracking when a grant is withdrawn.
+      */
+      window.dispatchEvent(new CustomEvent("fs:consent-changed", {
+        detail: detail
+      }));
+
+      subscribers.slice().forEach(function (subscriber) {
+        try {
+          subscriber(detail);
+        } catch (error) {
+          if (window.console && typeof window.console.error === "function") {
+            window.console.error("Fresh Start consent subscriber failed.", error);
+          }
+        }
+      });
+    }
+
+    function saveAndClose(services, source) {
+      var record = writePreferences(services);
+      applyPreferences(record.services, source);
+      closeDialog();
+      showToast("Your cookie choices have been saved.");
+    }
+
+    function showPanel(name, moveFocus) {
+      var showManage = name === "manage";
+      overview.hidden = showManage;
+      managePanel.hidden = !showManage;
+
+      if (showManage) {
+        dialog.setAttribute("aria-labelledby", "fs-consent-manage-title");
+        dialog.removeAttribute("aria-describedby");
+        updateControls(savedPreferences ? savedPreferences.services : emptyPreferences(false));
+        if (moveFocus) elements.back.focus();
+      } else {
+        dialog.setAttribute("aria-labelledby", "fs-consent-title");
+        dialog.setAttribute("aria-describedby", "fs-consent-description");
+        if (moveFocus) elements.accept.focus();
+      }
+    }
+
+    function openDialog(panel) {
+      if (layer.hidden) previousFocus = document.activeElement;
+      layer.hidden = false;
+      settingsButton.hidden = true;
+      document.body.classList.add("fs-consent-open");
+      showPanel(panel || "overview", false);
+      window.setTimeout(function () {
+        if (!layer.hidden) dialog.focus();
+      }, 0);
+    }
+
+    function closeDialog() {
+      layer.hidden = true;
+      settingsButton.hidden = false;
+      document.body.classList.remove("fs-consent-open");
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
+    }
+
+    function showToast(message) {
+      window.clearTimeout(toastTimer);
+      toast.hidden = false;
+      toast.textContent = "";
+      window.setTimeout(function () {
+        toast.textContent = message;
+      }, 0);
+      toastTimer = window.setTimeout(function () {
+        toast.hidden = true;
+      }, 3200);
+    }
+
+    function focusableElements() {
+      return Array.prototype.slice.call(
+        dialog.querySelectorAll(
+          'button:not([disabled]):not([hidden]), a[href], input:not([disabled]):not([hidden]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(function (element) {
+        return element.offsetParent !== null;
+      });
+    }
+
+    function trapFocus(event) {
+      if (event.key === "Escape" && savedPreferences) {
+        closeDialog();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      var focusable = focusableElements();
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      var currentIndex = focusable.indexOf(document.activeElement);
+
+      if (currentIndex === -1) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    elements.accept.addEventListener("click", function () {
+      saveAndClose(emptyPreferences(true), "accept-all");
+    });
+    elements.reject.addEventListener("click", function () {
+      saveAndClose(emptyPreferences(false), "reject-optional");
+    });
+    elements.manage.addEventListener("click", function () {
+      showPanel("manage", true);
+    });
+    elements.back.addEventListener("click", function () {
+      showPanel("overview", true);
+    });
+    elements.save.addEventListener("click", function () {
+      saveAndClose(servicesFromControls(), "save-selection");
+    });
+    elements.manageAccept.addEventListener("click", function () {
+      saveAndClose(emptyPreferences(true), "accept-all");
+    });
+    elements.manageReject.addEventListener("click", function () {
+      saveAndClose(emptyPreferences(false), "reject-optional");
+    });
+    settingsButton.addEventListener("click", function () {
+      openDialog("manage");
+    });
+    dialog.addEventListener("keydown", trapFocus);
+
+    window.addEventListener("storage", function (event) {
+      if (event.key !== STORAGE_KEY && event.key !== null) return;
+
+      var incoming = parsePreferences(event.newValue);
+      if (incoming) {
+        savedPreferences = incoming;
+        updateControls(incoming.services);
+        applyPreferences(incoming.services, "storage-sync");
+        if (!layer.hidden) closeDialog();
+      } else {
+        savedPreferences = null;
+        updateControls(emptyPreferences(false));
+        applyPreferences(emptyPreferences(false), "storage-reset");
+        openDialog("overview");
+      }
+    });
+
+    window.FSConsent = {
+      get: function () {
+        return savedPreferences ? copyServices(savedPreferences.services) : null;
+      },
+      getEffective: function () {
+        return copyServices(effectiveServices);
+      },
+      open: function () {
+        openDialog("manage");
+      },
+      reset: function () {
+        try {
+          window.localStorage.removeItem(STORAGE_KEY);
+        } catch (error) {
+          /* Continue with an in-memory reset if storage is unavailable. */
+        }
+        savedPreferences = null;
+        updateControls(emptyPreferences(false));
+        applyPreferences(emptyPreferences(false), "reset");
+        openDialog("overview");
+      },
+      subscribe: function (callback) {
+        if (typeof callback !== "function") {
+          throw new TypeError("FSConsent.subscribe requires a function.");
+        }
+        subscribers.push(callback);
+        callback(consentDetail("subscribe"));
+        return function () {
+          subscribers = subscribers.filter(function (subscriber) {
+            return subscriber !== callback;
+          });
+        };
+      }
+    };
+
+    applyPreferences(
+      effectiveServices,
+      savedPreferences ? "page-load" : "default-denied"
+    );
+
+    if (savedPreferences) {
+      settingsButton.hidden = false;
+    } else {
+      openDialog("overview");
+    }
+  }
+}());
+</script>
+<style>
+/*
+  Fresh Start cookie consent prototype
+  All selectors are prefixed to avoid collisions with WordPress/theme styles.
+*/
+
+body.fs-consent-open {
+  overflow: hidden;
+}
+
+.fs-consent-layer[hidden],
+.fs-consent-panel[hidden],
+.fs-consent-toast[hidden],
+.fs-consent-settings[hidden] {
+  display: none !important;
+}
+
+.fs-consent-layer {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 10000;
+}
+
+.fs-consent-backdrop {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  background: rgba(16, 36, 43, 0.66);
+  inset: 0;
+  position: absolute;
+}
+
+.fs-consent-dialog {
+  background: #f8f7f5;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(10, 30, 38, 0.34);
+  color: #101820;
+  display: flex;
+  flex-direction: column;
+  max-height: min(790px, calc(100vh - 48px));
+  max-height: min(790px, calc(100dvh - 48px));
+  max-width: 660px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.fs-consent-brand {
+  align-items: center;
+  background: #24596b;
+  color: white;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  min-height: 112px;
+  overflow: hidden;
+  padding: 18px 28px;
+  position: relative;
+}
+
+.fs-consent-brand:after {
+  border: 1px solid rgba(132, 218, 222, 0.42);
+  border-radius: 50%;
+  content: "";
+  height: 170px;
+  position: absolute;
+  right: 54px;
+  top: -95px;
+  transform: rotate(-18deg);
+  width: 235px;
+}
+
+.fs-consent-logo {
+  height: auto;
+  position: relative;
+  width: 150px;
+  z-index: 1;
+}
+
+.fs-consent-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  padding: 38px 40px 34px;
+}
+
+.fs-consent-panel {
+  min-height: 0;
+}
+
+#fs-consent-overview:not([hidden]) {
+  overflow-y: auto;
+}
+
+#fs-consent-manage-panel:not([hidden]) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  #fs-consent-overview,
+  .fs-consent-manage-scroll {
+    scrollbar-color: #786daa rgba(36, 89, 107, 0.08);
+    scrollbar-width: thin;
+  }
+}
+
+#fs-consent-overview::-webkit-scrollbar,
+.fs-consent-manage-scroll::-webkit-scrollbar {
+  width: 14px;
+}
+
+#fs-consent-overview::-webkit-scrollbar-track,
+.fs-consent-manage-scroll::-webkit-scrollbar-track {
+  background: rgba(36, 89, 107, 0.08);
+  border-radius: 999px;
+}
+
+#fs-consent-overview::-webkit-scrollbar-thumb,
+.fs-consent-manage-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8a7fbb 0%, #6a609d 100%);
+  border: 3px solid #f8f7f5;
+  border-radius: 999px;
+  min-height: 48px;
+}
+
+#fs-consent-overview::-webkit-scrollbar-thumb:hover,
+.fs-consent-manage-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #786daa 0%, #594f8c 100%);
+}
+
+#fs-consent-overview::-webkit-scrollbar-button,
+.fs-consent-manage-scroll::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+#fs-consent-overview::-webkit-scrollbar-corner,
+.fs-consent-manage-scroll::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.fs-consent-eyebrow {
+  color: #786daa;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  margin: 0 0 15px;
+  text-transform: uppercase;
+}
+
+.fs-consent-dialog h2 {
+  color: #153943;
+  font-family: "Inter Tight", Arial, Helvetica, sans-serif;
+  font-size: clamp(34px, 6vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin: 0;
+}
+
+.fs-consent-intro {
+  color: #4d5a5f;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 20px 0 28px;
+  max-width: 560px;
+}
+
+.fs-consent-actions {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.fs-consent-button {
+  align-items: center;
+  border: 1px solid #24596b;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 750;
+  justify-content: center;
+  min-height: 50px;
+  padding: 12px 20px;
+  text-align: center;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.fs-consent-button:hover {
+  transform: translateY(-2px);
+}
+
+.fs-consent-button:focus-visible,
+.fs-consent-link:focus-visible,
+.fs-consent-settings:focus-visible,
+.fs-consent-switch input:focus-visible + .fs-consent-switch-track {
+  outline: 3px solid #e5b84a;
+  outline-offset: 3px;
+}
+
+.fs-consent-button-primary {
+  background: #786daa;
+  border-color: #786daa;
+  color: white;
+}
+
+.fs-consent-button-secondary {
+  background: transparent;
+  color: #24596b;
+}
+
+.fs-consent-button-quiet {
+  background: #e2dfec;
+  border-color: #e2dfec;
+  color: #24596b;
+}
+
+.fs-consent-manage-button {
+  background: transparent;
+  border: 0;
+  color: #24596b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 750;
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: 5px;
+  padding: 7px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.fs-consent-meta {
+  align-items: center;
+  border-top: 1px solid rgba(36, 89, 107, 0.16);
+  color: #647176;
+  display: flex;
+  font-size: 11px;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 18px;
+}
+
+.fs-consent-meta a {
+  color: #24596b;
+  font-weight: 750;
+  text-underline-offset: 3px;
+}
+
+.fs-consent-manage-header {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 22px;
+  justify-content: space-between;
+}
+
+.fs-consent-back {
+  background: transparent;
+  border: 0;
+  color: #24596b;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 0;
+}
+
+.fs-consent-list {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 26px;
+}
+
+.fs-consent-manage-scroll {
+  flex: 1 1 auto;
+  margin: 26px -40px 18px 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 40px;
+}
+
+.fs-consent-choice {
+  align-items: center;
+  background: white;
+  border: 1px solid rgba(36, 89, 107, 0.15);
+  border-radius: 16px;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr auto;
+  padding: 17px 18px;
+}
+
+.fs-consent-choice-copy strong {
+  color: #153943;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.fs-consent-choice-copy span {
+  color: #687479;
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.fs-consent-switch {
+  display: inline-flex;
+  position: relative;
+}
+
+.fs-consent-switch input {
+  height: 1px;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.fs-consent-switch-track {
+  background: #c8ced0;
+  border-radius: 999px;
+  cursor: pointer;
+  display: block;
+  height: 28px;
+  position: relative;
+  transition: background 160ms ease;
+  width: 50px;
+}
+
+.fs-consent-switch-track:after {
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24);
+  content: "";
+  height: 22px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  transition: transform 160ms ease;
+  width: 22px;
+}
+
+.fs-consent-switch input:checked + .fs-consent-switch-track {
+  background: #786daa;
+}
+
+.fs-consent-switch input:checked + .fs-consent-switch-track:after {
+  transform: translateX(22px);
+}
+
+.fs-consent-switch input:disabled + .fs-consent-switch-track {
+  background: #24596b;
+  cursor: not-allowed;
+  opacity: 0.76;
+}
+
+.fs-consent-manage-actions {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.fs-consent-manage-actions .fs-consent-button-primary {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.fs-consent-chat-note {
+  background: rgba(132, 218, 222, 0.18);
+  border-radius: 14px;
+  color: #36535d;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 13px 15px;
+}
+
+.fs-consent-settings {
+  align-items: center;
+  background: #24596b;
+  border: 0;
+  border-radius: 999px;
+  bottom: 22px;
+  box-shadow: 0 8px 24px rgba(36, 89, 107, 0.24);
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 750;
+  gap: 8px;
+  left: 22px;
+  min-height: 44px;
+  padding: 10px 16px;
+  position: fixed;
+  z-index: 9990;
+}
+
+.fs-consent-settings-icon {
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  height: 17px;
+  position: relative;
+  width: 17px;
+}
+
+.fs-consent-settings-icon:after {
+  background: currentColor;
+  border-radius: 50%;
+  content: "";
+  height: 5px;
+  left: 4.5px;
+  position: absolute;
+  top: 4.5px;
+  width: 5px;
+}
+
+.fs-consent-toast {
+  background: #153943;
+  border-radius: 12px;
+  bottom: 82px;
+  box-shadow: 0 12px 30px rgba(21, 57, 67, 0.28);
+  color: white;
+  font-size: 13px;
+  left: 22px;
+  max-width: min(340px, calc(100vw - 44px));
+  padding: 13px 16px;
+  position: fixed;
+  z-index: 10010;
+}
+
+@media (max-width: 620px) {
+  .fs-consent-layer {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .fs-consent-dialog {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-height: 94vh;
+    max-height: 94dvh;
+    max-width: none;
+  }
+
+  .fs-consent-brand {
+    min-height: 88px;
+    padding: 13px 20px;
+  }
+
+  .fs-consent-logo {
+    width: 126px;
+  }
+
+  .fs-consent-body {
+    padding: 28px 22px 24px;
+  }
+
+  .fs-consent-manage-scroll {
+    margin-right: -22px;
+    padding-right: 22px;
+  }
+
+  .fs-consent-actions,
+  .fs-consent-manage-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .fs-consent-manage-actions .fs-consent-button-primary,
+  .fs-consent-manage-button {
+    grid-column: 1;
+  }
+
+  .fs-consent-choice {
+    padding: 15px;
+  }
+
+  .fs-consent-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fs-consent-settings {
+    bottom: 18px;
+    left: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fs-consent-button,
+  .fs-consent-switch-track,
+  .fs-consent-switch-track:after {
+    transition: none;
+  }
+}
+</style>
+<div class="fs-consent-layer" id="fs-consent-layer" hidden>
+  <div class="fs-consent-backdrop" aria-hidden="true"></div>
+  <section
+    class="fs-consent-dialog"
+    id="fs-consent-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="fs-consent-title"
+    aria-describedby="fs-consent-description"
+    tabindex="-1"
+  >
+    <div class="fs-consent-brand">
+      <img
+        class="fs-consent-logo"
+        src="https://freshstartineducation.cdn.salesforce-experience.com/cms/delivery/media/MCATXQBEKKEREIPJBHHDNOPDZA3Q?oid=00DKB000000KgL12AK&amp;channelId=0apKB000000vWudYAE"
+        alt="Fresh Start in Education"
+      >
+    </div>
+
+    <div class="fs-consent-body">
+      <div class="fs-consent-panel" id="fs-consent-overview">
+        <p class="fs-consent-eyebrow">Your privacy</p>
+        <h2 id="fs-consent-title">Cookies on our website</h2>
+        <p class="fs-consent-intro" id="fs-consent-description">
+          We use necessary cookies to make our website work. With your permission, we’d
+          also like to use optional cookies to understand how people use our website,
+          improve our communications and measure the effectiveness of our marketing.
+        </p>
+
+        <div class="fs-consent-actions">
+          <button class="fs-consent-button fs-consent-button-primary" id="fs-consent-accept" type="button">
+            Accept all
+          </button>
+          <button class="fs-consent-button fs-consent-button-secondary" id="fs-consent-reject" type="button">
+            Reject optional
+          </button>
+          <button class="fs-consent-manage-button fs-consent-link" id="fs-consent-manage" type="button">
+            Manage choices
+          </button>
+        </div>
+
+        <div class="fs-consent-meta">
+          <span>Necessary cookies are always active.</span>
+          <a href="https://freshstartineducation.co.uk/content/uploads/Web-Privacy-and-Cookie-Policy-2025.pdf" target="_blank" rel="noopener noreferrer">Cookie policy</a>
+        </div>
+      </div>
+
+      <div class="fs-consent-panel" id="fs-consent-manage-panel" hidden>
+        <div class="fs-consent-manage-header">
+          <h2 id="fs-consent-manage-title">Manage Cookies</h2>
+          <button class="fs-consent-back fs-consent-link" id="fs-consent-back" type="button">← Back</button>
+        </div>
+
+        <div class="fs-consent-manage-scroll">
+          <div class="fs-consent-list">
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Necessary</strong>
+              <span>Security, accessibility and your saved cookie choices.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Necessary cookies are always active</span>
+              <input type="checkbox" checked disabled>
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Marketing &amp; Communications</strong>
+              <span>Helps us understand which pages and communications are useful, so we can improve the information we share.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow marketing and communications cookies</span>
+              <input id="fs-consent-mcae" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Google</strong>
+              <span>Helps us understand how people find and use our website, measure the effectiveness of our campaigns and improve the online experience.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow Google analytics and advertising cookies</span>
+              <input id="fs-consent-google" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>Meta</strong>
+              <span>Helps us understand how people find and use our website through Facebook and Instagram, and improve the relevance of our communications.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow Meta advertising cookies</span>
+              <input id="fs-consent-meta" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="fs-consent-choice">
+            <div class="fs-consent-choice-copy">
+              <strong>HubSpot</strong>
+              <span>Remembers chat history and provides optional website analytics.</span>
+            </div>
+            <label class="fs-consent-switch">
+              <span class="fs-sr-only">Allow optional HubSpot cookies</span>
+              <input id="fs-consent-hubspot" type="checkbox">
+              <span class="fs-consent-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+          </div>
+
+          <p class="fs-consent-chat-note">
+            Live chat will still be available if you turn off optional HubSpot cookies,
+            but your conversation history may not be remembered when you return.
+          </p>
+        </div>
+
+        <div class="fs-consent-manage-actions">
+          <button class="fs-consent-button fs-consent-button-primary" id="fs-consent-save" type="button">
+            Save my choices
+          </button>
+          <button class="fs-consent-button fs-consent-button-quiet" id="fs-consent-manage-accept" type="button">
+            Accept all
+          </button>
+          <button class="fs-consent-button fs-consent-button-secondary" id="fs-consent-manage-reject" type="button">
+            Reject optional
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<button class="fs-consent-settings" id="fs-consent-settings" type="button" hidden>
+  <span class="fs-consent-settings-icon" aria-hidden="true"></span>
+  Cookie settings
+</button>
+
+<div class="fs-consent-toast" id="fs-consent-toast" role="status" aria-live="polite" hidden></div>

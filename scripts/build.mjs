@@ -72,9 +72,17 @@ for (const page of pageDefinitions) {
   await writeFile(page.output, renderPage(page), "utf8");
 }
 
+const consentSnippet = renderConsentSnippet();
+
 await writeFile(
   path.join(repositoryRoot, "docs", "fresh-start-consent-banner-snippet.html"),
-  renderConsentSnippet(),
+  consentSnippet,
+  "utf8",
+);
+
+await writeFile(
+  path.join(repositoryRoot, "Fresh-Start-Cookie-Consent-Contractor-Code.html"),
+  consentSnippet,
   "utf8",
 );
 
@@ -247,17 +255,18 @@ function renderPage({ kind, stories, otherPageSlugs, preview }) {
 function renderConsentSnippet() {
   return [
     "<!--",
-    "  FRESH START COOKIE CONSENT PROTOTYPE",
-    "  Demonstration code for contractor review; tracker adapters are deliberately inert.",
-    "  Replace each marked adapter with the production service code and verify in a staging environment.",
+    "  FRESH START COOKIE CONSENT — CONTRACTOR INTEGRATION CODE",
+    "  The JavaScript must execute before optional trackers; it safely waits for the markup.",
+    "  The controller publishes consent but does not install vendor trackers by itself.",
+    "  Connect the marked adapter boundary before release and verify on staging.",
     "-->",
+    "<script>",
+    consentScript.trim(),
+    "</script>",
     "<style>",
     consentStyles.trim(),
     "</style>",
     consentMarkup.trim(),
-    "<script>",
-    consentScript.trim(),
-    "</script>",
     "",
   ].join("\n");
 }

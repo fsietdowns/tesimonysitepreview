@@ -25,6 +25,7 @@ body.fs-consent-open {
 }
 
 .fs-consent-backdrop {
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   background: rgba(16, 36, 43, 0.66);
   inset: 0;
@@ -40,6 +41,7 @@ body.fs-consent-open {
   display: flex;
   flex-direction: column;
   max-height: min(790px, calc(100vh - 48px));
+  max-height: min(790px, calc(100dvh - 48px));
   max-width: 660px;
   overflow: hidden;
   position: relative;
@@ -448,6 +450,7 @@ body.fs-consent-open {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     max-height: 94vh;
+    max-height: 94dvh;
     max-width: none;
   }
 
